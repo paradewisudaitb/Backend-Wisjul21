@@ -19,7 +19,6 @@
 - Yarn
 - Node.js
 - TypeScript
-- ESLint
 
 ## Guideline penulisan kode
 - Akhiri statement dengan titik koma (`;`)

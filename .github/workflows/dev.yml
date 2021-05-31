@@ -4,26 +4,17 @@ on:
     branches: [ "main" ]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: installing modules
-      run: yarn
-    - name: linting
-      run: yarn lint
   build:
     runs-on: ubuntu-latest
-    needs: lint
     steps:
     - uses: actions/checkout@v2
     - name: Upload image to registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: paradewisudaitb/backend-wisjul21/wisjul21-be-dev
+        name: paradewisudaitb/backend-wisjul21/wisjul21-be
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        register: ghcr.io
+        registry: docker.pkg.github.com
         tags: "development"
   deploy:
     runs-on: ubuntu-latest
