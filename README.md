@@ -11,15 +11,6 @@
 - Jalankan `yarn build`
 - Jalankan `yarn run nodemon` (tekan ctrl+c untuk menghentikan)
 
-## Yang harus diperhatika sebelum push
-
-##
-
-## Teknologi yang digunakan
-- Yarn
-- Node.js
-- TypeScript
-
 ## Guideline penulisan kode
 - Akhiri statement dengan titik koma (`;`)
 - Gunakan kutip satu (single quote, `'`) untuk string
