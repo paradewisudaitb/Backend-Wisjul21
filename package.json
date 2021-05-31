@@ -1,0 +1,27 @@
+{
+  "name": "backend-Wisjul21",
+  "version": "1.0.0",
+  "description": "Back end untuk website Wisuda Juli 2021",
+  "main": "index.js",
+  "repository": "https://github.com/paradewisudaitb/Backend-Wisjul21",
+  "author": "Divisi Website Wisuda Juli ITB 2021",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/express": "^4.17.12",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.3.2"
+  },
+  "scripts": {
+    "lint": "yarn run eslint",
+    "build": "yarn run tsc",
+    "start": "yarn run nodemon build/index.js"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0"
+  }
+}
