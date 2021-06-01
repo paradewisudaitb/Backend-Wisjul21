@@ -1,10 +1,12 @@
 import express from 'express';
 import config from './config';
+import routes from './routes';
 
 const app = express();
 
-app.get('/', (_, res) => res.send('Hewwwo'));
+app.use('/', routes());
+app.get('/', (_, res) => res.send('Root'));
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server started on port ${config.PORT}`);
 });
