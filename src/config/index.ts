@@ -27,7 +27,7 @@ const filterDBMS = (name?: string): Dialect => {
 }
 
 if (envFound.error) {
-  throw new Error("Gagal me-load config dari .env");
+  console.log("Gagal me-load config dari .env");
 }
 
 export default {
