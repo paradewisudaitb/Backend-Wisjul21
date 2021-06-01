@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import example from './example';
 
-export default () => {
+export default (): Router => {
   const app = Router();
 
   example(app);
 
   return app;
-}
+};

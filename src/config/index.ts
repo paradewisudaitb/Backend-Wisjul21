@@ -1,6 +1,7 @@
 import { Dialect } from 'sequelize';
+import dotenv from 'dotenv';
 
-const envFound = require('dotenv').config();
+const envFound = dotenv.config();
 
 /**
  * Fungsi untu memfilter nama dbms menjadi dialect sequelize.
@@ -24,10 +25,10 @@ const filterDBMS = (name?: string): Dialect => {
     default:
       return 'postgres';
   }
-}
+};
 
 if (envFound.error) {
-  console.log("Gagal me-load config dari .env");
+  console.log('Gagal me-load config dari .env');
 }
 
 export default {

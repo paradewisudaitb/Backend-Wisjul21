@@ -15,4 +15,4 @@ export default async (): Promise<number> => {
     // throw new error('Gagal membuat koneksi ke database');
     return -1;
   }
-}
+};
