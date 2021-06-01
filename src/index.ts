@@ -1,13 +1,12 @@
 import express from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import config from './config';
+import routes from './routes';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
 
-app.get('/', (_, res) => res.send('Hewwwo'));
+app.use('/', routes());
+app.get('/', (_, res) => res.send('Root'));
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server started on port ${config.PORT}`);
 });

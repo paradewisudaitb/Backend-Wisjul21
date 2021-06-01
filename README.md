@@ -6,10 +6,9 @@
 
 ## Setup untuk development
 - Bikin file `.env` dan isi sesuai (dengan mengikuti `.env.example`)
-- Jalankan `NODE_ENV="prod"`
 - Jalankan `yarn`
 - Jalankan `yarn build`
-- Jalankan `yarn run nodemon` (tekan ctrl+c untuk menghentikan)
+- Jalankan `yarn serve` (tekan ctrl+c untuk menghentikan)
 
 ## Guideline penulisan kode
 - Akhiri statement dengan titik koma (`;`)
