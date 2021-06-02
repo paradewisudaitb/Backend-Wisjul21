@@ -11,15 +11,15 @@ plugins:
   - '@typescript-eslint'
 rules:
   indent:
-    - warn
+    - error
     - 2
     - SwitchCase: 1
   linebreak-style:
-    - warn
+    - error
     - unix
   quotes:
-    - warn
+    - error
     - single
   semi:
-    - warn
+    - error
     - always
