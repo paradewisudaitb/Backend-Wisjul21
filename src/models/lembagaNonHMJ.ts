@@ -7,14 +7,15 @@ const lembagaNonHMJ = conn.define('lembagaNonHMJ',{
     type : DataTypes.STRING(8),
     allowNull : false,
     primaryKey: true,
+    references: {
+      model: Wisudawan,
+      key: 'nim',
+    }
   },
   lembaga : {
     type : DataTypes.STRING,
     allowNull : false,
   }
 });
-
-Wisudawan.hasMany(lembagaNonHMJ, {foreignKey: 'nim'});
-lembagaNonHMJ.belongsTo(Wisudawan, {foreignKey : 'nim'});
 
 export default lembagaNonHMJ;

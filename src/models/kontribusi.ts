@@ -7,14 +7,15 @@ const kontribusi = conn.define('kontribusi',{
     type : DataTypes.STRING(8),
     allowNull : false,
     primaryKey: true,
+    references: {
+      model: Wisudawan,
+      key: 'nim'
+    }
   },
   kontribusi : {
     type : DataTypes.STRING,
     allowNull : false,
   }
 });
-
-Wisudawan.hasMany(kontribusi, {foreignKey: 'nim'});
-kontribusi.belongsTo(Wisudawan, {foreignKey : 'nim'});
 
 export default kontribusi;
