@@ -14,12 +14,8 @@ module.exports = {
         allowNull: false,
         primaryKey: true
       },
-      idHimpunan: {
+      idJurusan: {
         type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      jurusan: {
-        type: Sequelize.STRING,
         allowNull: false
       },
       namaLengkap: {
@@ -32,6 +28,7 @@ module.exports = {
       },
       pasfoto: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false
       },
       judulTA: {
@@ -48,7 +45,8 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       kotaAsal: {
         type: Sequelize.STRING,
@@ -62,20 +60,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
     });
     await queryInterface.createTable('karya', {
       nim: {
         type: Sequelize.STRING(8),
         allowNull: false,
         primaryKey: true,
+        references: {
+          model: 'wisudawan',
+          key: 'nim',
+        }
       },
       karya: {
         type: Sequelize.STRING,
@@ -96,6 +90,10 @@ module.exports = {
         type: Sequelize.STRING(8),
         primaryKey: true,
         allowNull: false,
+        references: {
+          model: 'wisudawan',
+          key: 'nim',
+        }
       },
       prestasi: {
         type: Sequelize.STRING,
@@ -116,6 +114,10 @@ module.exports = {
         type : Sequelize.STRING(8),
         allowNull : false,
         primaryKey: true,
+        references: {
+          model: 'wisudawan',
+          key: 'nim'
+        }
       },
       kontribusi : {
         type : Sequelize.STRING,
@@ -135,10 +137,96 @@ module.exports = {
         type : Sequelize.STRING(8),
         allowNull : false,
         primaryKey: true,
+        references: {
+          model: 'wisudawan',
+          key: 'nim',
+        }
       },
       lembaga : {
         type : Sequelize.STRING,
         allowNull : false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+    });
+    await queryInterface.createTable('himpunan', {
+      idHimpunan: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      namaHimpunan: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      singkatanHimpunan: {
+        type: Sequelize.STRING(16),
+        unique: true,
+        allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+    });
+    await queryInterface.createTable('jurusan', {
+      idJurusan: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      namaJurusan: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      idHimpunan: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        allowNull: false,
+        references: {
+          model: 'himpunan',
+          key: 'idHimpunan'
+        }
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+    });
+    await queryInterface.createTable('pesan', {
+      nim: { // penerima
+        type: Sequelize.STRING(8),
+        allowNull: false,
+        comment: 'Penerima pesan',
+        references: {
+          model: 'wisudawan',
+          key: 'nim',
+        }
+      },
+      namaPengirim: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      pesan: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -158,10 +246,13 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('wisudawan');
     await queryInterface.dropTable('pretasi');
     await queryInterface.dropTable('kontribusi');
     await queryInterface.dropTable('lembagaNonHMJ');
     await queryInterface.dropTable('karya');
+    await queryInterface.dropTable('wisudawan');
+    await queryInterface.dropTable('himpunan');
+    await queryInterface.dropTable('jurusan');
+    await queryInterface.dropTable('pesan');
   }
 };

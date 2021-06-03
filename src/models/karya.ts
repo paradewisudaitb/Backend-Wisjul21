@@ -7,6 +7,10 @@ const Karya = conn.define('karya', {
     type: DataTypes.STRING(8),
     allowNull: false,
     primaryKey: true,
+    references: {
+      model: Wisudawan,
+      key: 'nim',
+    }
   },
   karya: {
     type: DataTypes.STRING,
@@ -14,8 +18,5 @@ const Karya = conn.define('karya', {
     primaryKey: true,
   },
 });
-
-Wisudawan.hasMany(Karya, { foreignKey: 'nim' });
-Karya.belongsTo(Wisudawan, { foreignKey: 'nim' });
 
 export default Karya;

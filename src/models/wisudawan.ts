@@ -1,19 +1,14 @@
 import conn from '../connections/db';
 import { DataTypes } from 'sequelize';
 
-
 const Wisudawan = conn.define('wisudawan', {
   nim: {
     type: DataTypes.STRING(8),
     allowNull: false,
     primaryKey: true
   },
-  idHimpunan: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  jurusan: {
-    type: DataTypes.STRING,
+  idJurusan: {
+    type: DataTypes.TINYINT,
     allowNull: false
   },
   namaLengkap: {
@@ -26,6 +21,7 @@ const Wisudawan = conn.define('wisudawan', {
   },
   pasfoto: {
     type: DataTypes.STRING,
+    unique: true,
     allowNull: false
   },
   judulTA: {
@@ -42,7 +38,8 @@ const Wisudawan = conn.define('wisudawan', {
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   kotaAsal: {
     type: DataTypes.STRING,
@@ -53,10 +50,9 @@ const Wisudawan = conn.define('wisudawan', {
     allowNull: false
   },
   angkatan: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TINYINT, // 16, 17, 18, ...
     allowNull: false
   },
 });
-
 
 export default Wisudawan;
