@@ -3,8 +3,13 @@ import { DataTypes } from 'sequelize';
 
 
 const Wisudawan = conn.define('wisudawan', {
-  namaHimpunan: {
-    type: DataTypes.STRING,
+  nim: {
+    type: DataTypes.STRING(8),
+    allowNull: false,
+    primaryKey: true
+  },
+  idHimpunan: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   jurusan: {
@@ -14,11 +19,6 @@ const Wisudawan = conn.define('wisudawan', {
   namaLengkap: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  nim: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true
   },
   namaPanggilan: {
     type: DataTypes.STRING,
@@ -56,7 +56,6 @@ const Wisudawan = conn.define('wisudawan', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-}, {
 });
 
 

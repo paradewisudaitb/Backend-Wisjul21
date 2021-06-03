@@ -4,7 +4,7 @@ import Wisudawan from '../models/wisudawan';
 
 const lembagaNonHMJ = conn.define('lembagaNonHMJ',{
   nim : {
-    type : DataTypes.STRING,
+    type : DataTypes.STRING(8),
     allowNull : false,
     primaryKey: true,
   },
