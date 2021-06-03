@@ -4,7 +4,7 @@ import { DataTypes } from 'sequelize';
 
 const Karya = conn.define('karya', {
   nim: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(8),
     allowNull: false,
     primaryKey: true,
   },
@@ -14,8 +14,6 @@ const Karya = conn.define('karya', {
     primaryKey: true,
   },
 });
-
-// wkwkwkwkk
 
 Wisudawan.hasMany(Karya, { foreignKey: 'nim' });
 Karya.belongsTo(Wisudawan, { foreignKey: 'nim' });

@@ -4,7 +4,7 @@ import { DataTypes } from 'sequelize';
 
 const Prestasi = conn.define('pretasi', {
   nim: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(8),
     primaryKey: true,
     allowNull: false,
   },

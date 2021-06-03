@@ -4,7 +4,7 @@ import Wisudawan from '../models/wisudawan';
 
 const kontribusi = conn.define('kontribusi',{
   nim : {
-    type : DataTypes.STRING,
+    type : DataTypes.STRING(8),
     allowNull : false,
     primaryKey: true,
   },
