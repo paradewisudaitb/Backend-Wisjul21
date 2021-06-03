@@ -1,7 +1,7 @@
 import config from '../config';
 import { Sequelize } from 'sequelize';
 
-export default new Sequelize(
+const conn = new Sequelize(
   config.db.NAME,
   config.db.USER,
   config.db.PASS,
@@ -11,3 +11,5 @@ export default new Sequelize(
     pool: config.db.POOL,
   }
 );
+
+export default conn;
