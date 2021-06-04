@@ -9,7 +9,7 @@ import conn from '../connections/db';
  */
 interface PesanAttributes {
   nim: string,
-  namaPengirim: string,
+  namaPengirim: string|undefined,
   pesan: string,
 }
 
@@ -22,7 +22,7 @@ class Pesan extends Model<PesanAttributes, PesanCreationAttributes>
   implements PesanAttributes {
   // atribut-atribut
   public nim!: string;
-  public namaPengirim!: string;
+  public namaPengirim!: string|undefined;
   public pesan!: string;
 
   // data pembuatan dan update
@@ -38,7 +38,6 @@ Pesan.init(
     },
     namaPengirim: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     pesan: {
       type: DataTypes.STRING,
