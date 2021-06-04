@@ -1,22 +1,48 @@
+import{
+  Model,
+  DataTypes,
+  Optional,
+} from 'sequelize';
 import conn from '../connections/db';
-import Wisudawan from './wisudawan';
-import { DataTypes } from 'sequelize';
+/**
+ * Atribut yang ada di model lembaga
+ */
+interface PrestasiAttributes {
+  nim: string,
+  prestasi: string,
+}
 
-const Prestasi = conn.define('pretasi', {
-  nim: {
-    type: DataTypes.STRING(8),
-    primaryKey: true,
-    allowNull: false,
-    references: {
-      model: Wisudawan,
-      key: 'nim',
-    }
+/**
+ * Atribut optional di `User.build` dan `User.create`
+ */
+type PrestasiCreationAttributes = Optional<PrestasiAttributes, 'nim'>
+
+class Prestasi extends Model<PrestasiAttributes, PrestasiCreationAttributes>
+  implements PrestasiAttributes {
+  // atribut-atribut
+  public nim!: string;
+  public prestasi!: string;
+
+  // data pembuatan dan update
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+Prestasi.init(
+  {
+    nim: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    prestasi: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  prestasi: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
+  {
+    tableName: 'prestasi',
+    sequelize: conn,
   }
-});
+);
 
 export default Prestasi;

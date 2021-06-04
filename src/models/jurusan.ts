@@ -1,12 +1,4 @@
-/**
- * idJurusan -> TINYINT, Auto Increment, PK
- * namaJurusan -> string, unique, not null
- * idHimpunan -> TINYINT, FK ke himpunan.idHimpunan
- */
-
-
 import {
-  Sequelize,
   Model,
   DataTypes,
   Optional,
@@ -24,8 +16,7 @@ interface JurusanAttributes {
 /**
  * Attribut optional di `User.build` dan `User.create`
  */
-interface JurusanCreationAttributes
-  extends Optional<JurusanAttributes, "idJurusan"> {}
+type JurusanCreationAttributes = Optional<JurusanAttributes, 'idJurusan'>
 
 class Jurusan extends Model<JurusanAttributes, JurusanCreationAttributes>
   implements JurusanAttributes {
@@ -56,7 +47,7 @@ Jurusan.init(
     },
   },
   {
-    tableName: "jurusan",
+    tableName: 'jurusan',
     sequelize: conn,
   }
 );

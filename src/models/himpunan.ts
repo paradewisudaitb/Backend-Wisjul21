@@ -1,9 +1,3 @@
-/**
- * idHimpunan -> TINYNINT, Auto Increment, PK
- * namaHimpunan -> string, unique, not null
- * singkatanHimpunan -> sting, unique, not null
- */
-
 import {
   Model,
   Association,
@@ -31,8 +25,7 @@ interface HimpunanAttributes {
  * Attribut "idHimpunan" jadi optional pas manggil
  * `User.build` dan `User.create`
  */
-interface HimpunanCreationAttributes
-  extends Optional<HimpunanAttributes, "idHimpunan"> {}
+type HimpunanCreationAttributes = Optional<HimpunanAttributes, 'idHimpunan'>
 
 class Himpunan extends Model<HimpunanAttributes, HimpunanCreationAttributes>
   implements HimpunanAttributes {
@@ -75,15 +68,15 @@ Himpunan.init(
     },
   },
   {
-    tableName: "himpunan",
+    tableName: 'himpunan',
     sequelize: conn,
   }
 );
 
 Himpunan.hasMany(Jurusan, {
-  foreignKey: "idHimpunan",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'idHimpunan',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 export default Himpunan;

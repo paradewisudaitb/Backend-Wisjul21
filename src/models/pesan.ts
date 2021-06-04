@@ -1,35 +1,54 @@
-/**
- * idPesan -> pake yang bawaan di sequelize
- * nim -> string(8), not null // buat penerima, FK -> wisudawan.nim
- * namaPengirim -> string
- * pesan -> string (atau TEXT), not null
- */
-
+import{
+  Model,
+  DataTypes,
+  Optional,
+} from 'sequelize';
 import conn from '../connections/db';
-import Wisudawan from './wisudawan';
-import { DataTypes } from 'sequelize';
+/**
+ * Atribut yang ada di model lembaga
+ */
+interface PesanAttributes {
+  nim: string,
+  namaPengirim: string,
+  pesan: string,
+}
 
-const Pesan = conn.define('pesan', {
-  nim: { // penerima
-    type: DataTypes.STRING(8),
-    allowNull: false,
-    comment: 'Penerima pesan',
-    references: {
-      model: Wisudawan,
-      key: 'nim',
-    }
+/**
+ * Atribut optional di `User.build` dan `User.create`
+ */
+type PesanCreationAttributes = Optional<PesanAttributes, 'nim'>
+
+class Pesan extends Model<PesanAttributes, PesanCreationAttributes>
+  implements PesanAttributes {
+  // atribut-atribut
+  public nim!: string;
+  public namaPengirim!: string;
+  public pesan!: string;
+
+  // data pembuatan dan update
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+Pesan.init(
+  {
+    nim: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    namaPengirim: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pesan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  namaPengirim: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  pesan: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  {
+    tableName: 'pesan',
+    sequelize: conn,
   }
-});
-
-Wisudawan.hasMany(Pesan, { foreignKey: 'nim' });
-Pesan.belongsTo(Wisudawan, { foreignKey: 'nim' });
+);
 
 export default Pesan;

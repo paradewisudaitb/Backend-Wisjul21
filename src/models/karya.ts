@@ -1,22 +1,49 @@
+import {
+  Model,
+  DataTypes,
+  Optional,
+} from 'sequelize';
 import conn from '../connections/db';
-import Wisudawan from './wisudawan';
-import { DataTypes } from 'sequelize';
+/**
+ * Atribut yang ada di model karya
+ */
+interface KaryaAttributes { 
+  nim: string;
+  karya: string;
+}
 
-const Karya = conn.define('karya', {
-  nim: {
-    type: DataTypes.STRING(8),
-    allowNull: false,
-    primaryKey: true,
-    references: {
-      model: Wisudawan,
-      key: 'nim',
-    }
+/**
+ * Atribut optional di `User.build` dan `User.create`
+ */
+type KaryaCreationAtrributes = Optional<KaryaAttributes, 'nim'>
+
+
+class Karya extends Model<KaryaAttributes, KaryaCreationAtrributes>
+  implements KaryaAttributes {
+  // atribut-atribut
+  public nim!: string;
+  public karya!: string;
+
+  // data pembuatan dan update
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+Karya.init(
+  {
+    nim: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    karya: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  karya: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-});
+  {
+    tableName: 'karya',
+    sequelize: conn,
+  }
+);
 
 export default Karya;
