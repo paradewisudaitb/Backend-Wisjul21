@@ -7,6 +7,7 @@ const conn = new Sequelize(
   config.db.PASS,
   {
     host: config.db.HOST,
+    port: config.db.PORT,
     dialect: config.db.DIALECT,
     pool: config.db.POOL,
   }
