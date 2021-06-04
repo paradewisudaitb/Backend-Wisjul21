@@ -46,4 +46,29 @@ Karya.init(
   }
 );
 
+export const create = async (nim: string, karya: string): Promise<Karya> => {
+  return await Karya.create({nim, karya});
+};
+
+export const destroy = async (nim: string, karya: string): Promise<void> => {
+  await Karya.destroy({
+    where: {
+      nim,karya
+    }
+  });
+};
+
+// export const update = async (nim: string, karya: string, karyaBaru: string) => {
+//   Karya.update({karya: karyaBaru}, {
+//     where: {
+//       nim, karya
+//     }
+//   });
+// };
+
+export const selectAll = async (): Promise<Karya[]> => {
+  return Karya.findAll();
+};
+
+
 export default Karya;

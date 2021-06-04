@@ -52,4 +52,21 @@ Jurusan.init(
   }
 );
 
+export const create = async (namaJurusan: string, idHimpunan: number): Promise<Jurusan> => {
+  return await Jurusan.create({ namaJurusan, idHimpunan });
+};
+
+export const destroy = async (namaJurusan: string, idHimpunan: string): Promise<void> => {
+  await Jurusan.destroy({
+    where: {
+      namaJurusan,
+      idHimpunan
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Jurusan[]> => {
+  return await Jurusan.findAll();
+};
+
 export default Jurusan;

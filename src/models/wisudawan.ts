@@ -10,11 +10,19 @@ import {
   DataTypes,
 } from 'sequelize';
 import conn from '../connections/db';
-import Prestasi from './prestasi';
+import Prestasi, {
+  create as prestasiCreate
+} from './prestasi';
 import Pesan from './pesan';
-import Lembaga from './lembagaNonHMJ';
-import Kontribusi from './kontribusi';
-import Karya from './karya';
+import Lembaga, {
+  create as lembagaCreate
+} from './lembaga';
+import Kontribusi, {
+  create as kontribusiCreate
+} from './kontribusi';
+import Karya, {
+  create as karyaCreate
+} from './karya';
 
 /**
  * Atribut yang ada di model himpunan
@@ -113,7 +121,7 @@ Wisudawan.init(
       primaryKey: true
     },
     idJurusan: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     namaLengkap: {
@@ -155,12 +163,12 @@ Wisudawan.init(
       allowNull: false
     },
     angkatan: {
-      type: DataTypes.TINYINT, // 16, 17, 18, ...
+      type: DataTypes.INTEGER, // 16, 17, 18, ...
       allowNull: false
     },
   },
   {
-    tableName: 'Wisudawan',
+    tableName: 'wisudawan',
     sequelize: conn,
   }
 );
@@ -194,5 +202,108 @@ Wisudawan.hasMany(Karya, {
   onDelete: 'cascade',
   onUpdate: 'cascade',
 });
+
+export const create = async (
+  nim: string, 
+  idJurusan: number, 
+  namaLengkap: string, 
+  namaPanggilan: string, 
+  pasfoto: string, 
+  judulTA: string, 
+  funFact: string, 
+  tipsSukses: string, 
+  email: string, 
+  kotaAsal: string, 
+  tanggalLahir: Date, 
+  angkatan: number,
+  karya?: Karya[],
+  kontribusi?: Kontribusi[],
+  lembaga?: Lembaga[],
+  prestasi?: Prestasi[]
+): Promise<Wisudawan> => {
+  const wisudawan = await Wisudawan.create({
+    nim, 
+    idJurusan, 
+    namaLengkap,
+    namaPanggilan, 
+    pasfoto, 
+    judulTA, 
+    funFact, 
+    tipsSukses, 
+    email, 
+    kotaAsal, 
+    tanggalLahir, 
+    angkatan,
+  });
+
+  if (!lembaga) {// ga ada karya
+    wisudawan.addLembagas(await lembagaCreate(nim, '-'));
+  } else {
+    for (const lem of lembaga) {
+      wisudawan.addLembagas(lem);
+    }
+  }
+
+  if (!kontribusi) {// ga ada karya
+    wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
+  } else {
+    for (const lem of kontribusi) {
+      wisudawan.addKontribusis(lem);
+    }
+  }
+
+  if (!karya) {// ga ada karya
+    wisudawan.addKaryas(await karyaCreate(nim, '-'));
+  } else {
+    for (const lem of karya) {
+      wisudawan.addKaryas(lem);
+    }
+  }
+
+  if (!prestasi) { // ga ada prestasi
+    wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
+  } else {
+    for (const pres of prestasi) {
+      wisudawan.addPrestasis(pres);
+    }
+  }
+  return wisudawan;
+};
+
+export const destroy = async (
+  nim: string, 
+  idJurusan: number, 
+  namaLengkap: string, 
+  namaPanggilan: string, 
+  pasfoto: string, 
+  judulTA: string, 
+  funFact: string, 
+  tipsSukses: string, 
+  email: string, 
+  kotaAsal: string, 
+  tanggalLahir: Date, 
+  angkatan: number
+): Promise<void> =>{
+  await Wisudawan.destroy({
+    where: {
+      nim, 
+      idJurusan, 
+      namaLengkap,
+      namaPanggilan, 
+      pasfoto, 
+      judulTA, 
+      funFact, 
+      tipsSukses, 
+      email, 
+      kotaAsal, 
+      tanggalLahir, 
+      angkatan
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Wisudawan[]> => {
+  return Wisudawan.findAll();
+};
 
 export default Wisudawan;

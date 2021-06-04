@@ -45,4 +45,21 @@ Prestasi.init(
   }
 );
 
+export const create = async (nim: string, prestasi: string): Promise<Prestasi> => {
+  return await Prestasi.create({ nim, prestasi });
+};
+
+export const destroy = async (nim: string, prestasi: string): Promise<void> => {
+  await Prestasi.destroy({
+    where: {
+      nim,
+      prestasi
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Prestasi[]> => {
+  return Prestasi.findAll();
+};
+
 export default Prestasi;

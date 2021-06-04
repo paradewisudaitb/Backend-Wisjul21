@@ -46,5 +46,21 @@ Kontribusi.init(
   }
 );
 
+export const create = async (nim: string, kontribusi: string): Promise<Kontribusi> => {
+  return await Kontribusi.create({nim, kontribusi});
+};
+
+export const destroy = async (nim: string, kontribusi: string): Promise<void> => {
+  await Kontribusi.destroy({
+    where: {
+      nim,
+      kontribusi
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Kontribusi[]> => {
+  return Kontribusi.findAll();
+};
 
 export default Kontribusi;

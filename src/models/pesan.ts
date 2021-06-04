@@ -51,4 +51,20 @@ Pesan.init(
   }
 );
 
+export const create = async (nim: string, pesan: string, namaPengirim?: string): Promise<Pesan> => {
+  return await Pesan.create({ nim, pesan, namaPengirim });
+};
+
+export const destroy = async (nim: string, pesan: string, namaPengirim?: string): Promise<void> => {
+  await Pesan.destroy({
+    where: {
+      nim, pesan, namaPengirim
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Pesan[]> => {
+  return Pesan.findAll();
+};
+
 export default Pesan;

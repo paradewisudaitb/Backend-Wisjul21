@@ -41,8 +41,26 @@ Lembaga.init(
   },
   {
     tableName: 'lembaga',
+    freezeTableName: true,
     sequelize: conn,
   }
 );
+
+export const create = async (nim: string, lembaga: string): Promise<Lembaga> => {
+  return await Lembaga.create({ nim, lembaga });
+};
+
+export const destroy = async (nim: string, lembaga: string): Promise<void> => {
+  await Lembaga.destroy({
+    where: {
+      nim,
+      lembaga
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Lembaga[]> => {
+  return Lembaga.findAll();
+};
 
 export default Lembaga;

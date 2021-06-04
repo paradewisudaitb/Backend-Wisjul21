@@ -79,4 +79,21 @@ Himpunan.hasMany(Jurusan, {
   onUpdate: 'cascade',
 });
 
+export const create = async (namaHimpunan: string, singkatanHimpunan: string): Promise<Himpunan> => {
+  return await Himpunan.create({ namaHimpunan, singkatanHimpunan });
+};
+
+export const destroy = async (namaHimpunan: string, singkatanHimpunan: string): Promise<void> => {
+  await Himpunan.destroy({
+    where: {
+      namaHimpunan,
+      singkatanHimpunan
+    }
+  });
+};
+
+export const selectAll = async (): Promise<Himpunan[]> => {
+  return Himpunan.findAll();
+};
+
 export default Himpunan;
