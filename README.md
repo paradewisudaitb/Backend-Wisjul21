@@ -6,6 +6,7 @@
 
 ## Setup untuk development
 - Bikin file `.env` dan isi sesuai (dengan mengikuti `.env.example`)
+- Jalankan `export NODE_ENV=development`
 - Jalankan `yarn`
 - Jalankan `yarn build`
 - Jalankan `yarn serve` (tekan ctrl+c untuk menghentikan)
