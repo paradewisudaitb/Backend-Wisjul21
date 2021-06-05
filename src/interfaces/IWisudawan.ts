@@ -16,9 +16,9 @@ export interface WisudawanAttributes {
   angkatan: number;
 }
 
-export interface WisudawanForm {
+export interface WisudawanInput {
   nim: string;
-  idJurusan: number;
+  jurusan: string;
   namaLengkap: string;
   namaPanggilan: string;
   pasfoto: string;

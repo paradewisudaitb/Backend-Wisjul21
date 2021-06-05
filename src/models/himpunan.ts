@@ -51,10 +51,12 @@ Himpunan.init(
     },
     namaHimpunan: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
     singkatanHimpunan: {
       type: DataTypes.STRING(16),
+      unique: true,
       allowNull: false,
     },
   },

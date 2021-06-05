@@ -32,6 +32,7 @@ Jurusan.init(
     },
     namaJurusan: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
     idHimpunan: {
