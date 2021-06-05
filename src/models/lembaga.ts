@@ -1,23 +1,10 @@
 import{
   Model,
   DataTypes,
-  Optional,
 } from 'sequelize';
 import conn from '../connections/db';
-/**
- * Atribut yang ada di model lembaga
- */
-interface LembagaAttributes {
-  nim: string,
-  lembaga: string,
-}
-
-/**
- * Atribut optional di `User.build` dan `User.create`
- */
-type LembagaCreationAttributes = Optional<LembagaAttributes, 'nim'>
-
-class Lembaga extends Model<LembagaAttributes, LembagaCreationAttributes>
+import { LembagaAttributes } from '../interfaces/ILembaga';
+class Lembaga extends Model<LembagaAttributes>
   implements LembagaAttributes {
   // atribut-atribut
   public nim!: string;
@@ -37,6 +24,7 @@ Lembaga.init(
     lembaga: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
     },
   },
   {

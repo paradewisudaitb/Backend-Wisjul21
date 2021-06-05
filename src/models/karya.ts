@@ -1,24 +1,11 @@
 import {
   Model,
   DataTypes,
-  Optional,
 } from 'sequelize';
 import conn from '../connections/db';
-/**
- * Atribut yang ada di model karya
- */
-interface KaryaAttributes { 
-  nim: string;
-  karya: string;
-}
+import { KaryaAttributes } from '../interfaces/IKarya';
 
-/**
- * Atribut optional di `User.build` dan `User.create`
- */
-type KaryaCreationAtrributes = Optional<KaryaAttributes, 'nim'>
-
-
-class Karya extends Model<KaryaAttributes, KaryaCreationAtrributes>
+class Karya extends Model<KaryaAttributes>
   implements KaryaAttributes {
   // atribut-atribut
   public nim!: string;
@@ -37,6 +24,7 @@ Karya.init(
     },
     karya: {
       type: DataTypes.STRING,
+      primaryKey: true,
       allowNull: false,
     },
   },

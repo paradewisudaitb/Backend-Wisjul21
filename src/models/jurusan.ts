@@ -4,14 +4,7 @@ import {
   Optional,
 } from 'sequelize';
 import conn from '../connections/db';
-/**
- * Atribut yang ada di model himpunan
- */
-interface JurusanAttributes {
-  idJurusan: number;
-  namaJurusan: string;
-  idHimpunan: number;
-}
+import { JurusanAttributes } from '../interfaces/IJurusan';
 
 /**
  * Attribut optional di `User.build` dan `User.create`

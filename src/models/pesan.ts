@@ -4,23 +4,17 @@ import{
   Optional,
 } from 'sequelize';
 import conn from '../connections/db';
-/**
- * Atribut yang ada di model lembaga
- */
-interface PesanAttributes {
-  nim: string,
-  namaPengirim: string|undefined,
-  pesan: string,
-}
+import { PesanAttributes } from '../interfaces/IPesan';
 
 /**
  * Atribut optional di `User.build` dan `User.create`
  */
-type PesanCreationAttributes = Optional<PesanAttributes, 'nim'>
+type PesanCreationAttributes = Optional<PesanAttributes, 'idPesan'>
 
 class Pesan extends Model<PesanAttributes, PesanCreationAttributes>
   implements PesanAttributes {
   // atribut-atribut
+  public idPesan!: number;
   public nim!: string;
   public namaPengirim!: string|undefined;
   public pesan!: string;
@@ -32,9 +26,14 @@ class Pesan extends Model<PesanAttributes, PesanCreationAttributes>
 
 Pesan.init(
   {
+    idPesan: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     nim: {
       type: DataTypes.STRING,
-      primaryKey: true,
+      allowNull: false,
     },
     namaPengirim: {
       type: DataTypes.STRING,

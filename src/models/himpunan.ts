@@ -11,16 +11,7 @@ import {
 } from 'sequelize';
 import conn from '../connections/db';
 import Jurusan from './jurusan';
-
-/**
- * Atribut yang ada di model himpunan
- */
-interface HimpunanAttributes {
-  idHimpunan: number;
-  namaHimpunan: string;
-  singkatanHimpunan: string;
-}
-
+import { HimpunanAttributes } from '../interfaces/IHimpunan';
 /**
  * Attribut "idHimpunan" jadi optional pas manggil
  * `User.build` dan `User.create`

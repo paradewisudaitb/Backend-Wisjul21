@@ -1,7 +1,6 @@
 import {
   Model,
   Association,
-  Optional,
   HasManyGetAssociationsMixin,
   HasManyAddAssociationMixin,
   HasManyHasAssociationMixin,
@@ -23,32 +22,9 @@ import Kontribusi, {
 import Karya, {
   create as karyaCreate
 } from './karya';
+import { WisudawanAttributes } from '../interfaces/IWisudawan';
 
-/**
- * Atribut yang ada di model himpunan
- */
-interface WisudawanAttributes {
-  nim: string;
-  idJurusan: number;
-  namaLengkap: string;
-  namaPanggilan: string;
-  pasfoto: string;
-  judulTA: string;
-  funFact: string;
-  tipsSukses: string;
-  email: string;
-  kotaAsal: string;
-  tanggalLahir: Date;//gatau date di ts apa
-  angkatan: number;
-}
-
-/**
- * Attribut "idHimpunan" jadi optional pas manggil
- * `User.build` dan `User.create`
- */
-type WisudawanCreationAttributes = Optional<WisudawanAttributes, 'nim'>
-
-class Wisudawan extends Model<WisudawanAttributes, WisudawanCreationAttributes>
+class Wisudawan extends Model<WisudawanAttributes>
   implements WisudawanAttributes {
   // atribut-atribut
   public nim!: string;

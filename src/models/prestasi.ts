@@ -1,23 +1,11 @@
 import{
   Model,
   DataTypes,
-  Optional,
 } from 'sequelize';
 import conn from '../connections/db';
-/**
- * Atribut yang ada di model lembaga
- */
-interface PrestasiAttributes {
-  nim: string,
-  prestasi: string,
-}
+import { PrestasiAttributes } from '../interfaces/IPrestasi';
 
-/**
- * Atribut optional di `User.build` dan `User.create`
- */
-type PrestasiCreationAttributes = Optional<PrestasiAttributes, 'nim'>
-
-class Prestasi extends Model<PrestasiAttributes, PrestasiCreationAttributes>
+class Prestasi extends Model<PrestasiAttributes>
   implements PrestasiAttributes {
   // atribut-atribut
   public nim!: string;
@@ -37,6 +25,7 @@ Prestasi.init(
     prestasi: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
     },
   },
   {

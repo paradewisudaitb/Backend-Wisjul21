@@ -1,23 +1,14 @@
 import {
   Model,
   DataTypes,
-  Optional,
 } from 'sequelize';
 import conn from '../connections/db';
-/**
- * Atribut yang ada di model kontribusi
- */
-interface KontribusiAttributes {
-  nim: string;
-  kontribusi: string;
-}
+import { KontribusiAttributes } from '../interfaces/IKontribusi';
 
 /**
  * Atribut optional di `User.build` dan `User.create`
  */
-type KontribusiCreationAttributes = Optional<KontribusiAttributes, 'nim'>
-
-class Kontribusi extends Model<KontribusiAttributes, KontribusiCreationAttributes>
+class Kontribusi extends Model<KontribusiAttributes>
   implements KontribusiAttributes {
   // atribut-atribut
   public nim!: string;
@@ -37,6 +28,7 @@ Kontribusi.init(
     },
     kontribusi: {
       type: DataTypes.STRING,
+      primaryKey: true,
       allowNull: false,
     },
   },
