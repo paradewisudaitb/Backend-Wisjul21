@@ -7,19 +7,16 @@ import HttpException from './routes/middleware/HttpException';
 
 const app = express();
 
-const corsWhitelist = ['https://wisjulitb.comm', 'http://staging.wisjulitb.com'];
-
 // katanya bagus kalo pake reverse proxy
 app.enable('trust proxy');
-app.use(cors({
-  origin: (origin, callback) => {
-    if (origin && corsWhitelist.indexOf(origin) != -1) {
-      callback(null, true);
-    } else {
-      callback(new HttpException(403, 'Not allowed by CORS'));
-    }
-  },
-}));
+if (process.env.NODE_ENV == 'production') {
+  app.use(cors({
+    origin: 'https://wisjulitb.com',
+  }));
+} else {
+  app.use(cors());
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
