@@ -3,6 +3,10 @@ import { newWisudawan } from '../services/form';
 
 const route = Router();
 
+/**
+ * Router untuk database terpusat
+ * @param app Express app
+ */
 export default (app: Router): void => {
   app.use('/form', route);
 
