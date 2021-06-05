@@ -18,7 +18,7 @@ class Lembaga extends Model<LembagaAttributes>
 Lembaga.init(
   {
     nim: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(8),
       primaryKey: true,
     },
     lembaga: {

@@ -21,7 +21,7 @@ export interface WisudawanInput {
   jurusan: string;
   namaLengkap: string;
   namaPanggilan: string;
-  pasfoto: string;
+  linkPasFoto: string;
   judulTA: string;
   funFact: string;
   tipsSukses: string;
