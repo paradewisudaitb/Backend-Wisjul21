@@ -192,10 +192,10 @@ export const create = async (
   kotaAsal: string, 
   tanggalLahir: Date, 
   angkatan: number,
-  karya?: Karya[],
-  kontribusi?: Kontribusi[],
-  lembaga?: Lembaga[],
-  prestasi?: Prestasi[]
+  karya?: string[],
+  kontribusi?: string[],
+  lembaga?: string[],
+  prestasi?: string[]
 ): Promise<Wisudawan> => {
   const wisudawan = await Wisudawan.create({
     nim, 
@@ -216,7 +216,7 @@ export const create = async (
     wisudawan.addLembagas(await lembagaCreate(nim, '-'));
   } else {
     for (const lem of lembaga) {
-      wisudawan.addLembagas(lem);
+      wisudawan.addLembagas(await lembagaCreate(nim, lem));
     }
   }
 
@@ -224,7 +224,7 @@ export const create = async (
     wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
   } else {
     for (const lem of kontribusi) {
-      wisudawan.addKontribusis(lem);
+      wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
     }
   }
 
@@ -232,7 +232,7 @@ export const create = async (
     wisudawan.addKaryas(await karyaCreate(nim, '-'));
   } else {
     for (const lem of karya) {
-      wisudawan.addKaryas(lem);
+      wisudawan.addKaryas(await karyaCreate(nim, lem));
     }
   }
 
@@ -240,7 +240,7 @@ export const create = async (
     wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
   } else {
     for (const pres of prestasi) {
-      wisudawan.addPrestasis(pres);
+      wisudawan.addPrestasis(await prestasiCreate(nim, pres));
     }
   }
   return wisudawan;

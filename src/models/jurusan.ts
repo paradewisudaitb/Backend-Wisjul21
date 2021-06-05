@@ -63,4 +63,12 @@ export const selectAll = async (): Promise<Jurusan[]> => {
   return await Jurusan.findAll();
 };
 
+export const getJurusanFromNama = async (nama: string): Promise<Jurusan | null> => {
+  return await Jurusan.findOne({
+    where: {
+      namaJurusan: nama,
+    }
+  });
+};
+
 export default Jurusan;
