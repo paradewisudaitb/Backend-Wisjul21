@@ -8,10 +8,10 @@ export default (app: Router): void => {
 
   route.post('/create', async (req, res, next) => {
     try {
-      const wisudawan = await newWisudawan(req.body);
-      res.json({
-        nim: wisudawan.nim,
-        name: wisudawan.namaLengkap,
+      const w = await newWisudawan(req.body);
+      res.status(201).json({
+        name: w.namaLengkap,
+        nim: w.nim,
       });
     } catch (error) {
       console.error(error);
