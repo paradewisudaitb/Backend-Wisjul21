@@ -4,6 +4,7 @@ import {
   Optional,
 } from 'sequelize';
 import conn from '../connections/db';
+import Himpunan from './himpunan';
 import { JurusanAttributes } from '../interfaces/IJurusan';
 
 /**
@@ -67,6 +68,14 @@ export const getJurusanFromNama = async (nama: string): Promise<Jurusan | null> 
   return await Jurusan.findOne({
     where: {
       namaJurusan: nama,
+    }
+  });
+};
+
+export const getJurusanFromIDHimpunan = async (idHimpunan: number): Promise<Jurusan[] | null> => {
+  return await Jurusan.findAll({
+    where: {
+      idHimpunan,
     }
   });
 };

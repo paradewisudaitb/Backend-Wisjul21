@@ -95,4 +95,15 @@ export const selectAll = async (): Promise<Himpunan[]> => {
   return Himpunan.findAll();
 };
 
+export const getJurusanFromNamaHimpunan = async (namaHimpunan: string): Promise<Himpunan[]> => {
+  return Himpunan.findAll({
+    where: {
+      namaHimpunan,
+    },
+    include: [
+      Jurusan
+    ],
+  });
+};
+
 export default Himpunan;
