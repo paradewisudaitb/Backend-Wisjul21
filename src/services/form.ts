@@ -49,9 +49,9 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
       prestasi,
     );
   } catch (_) {
+    // e adalah UniqueConstraintError
     const e: ValidationError = _;
     if (e.errors) {
-      // e adalah UniqueConstraintError
       let str = '';
       for (const eDetail of e.errors) {
         str += eDetail.message;
