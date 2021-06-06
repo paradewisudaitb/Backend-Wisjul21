@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import Jurusan from '../models/jurusan';
 import { getJurusan } from '../services/jurusan';
 import HttpException from './middleware/HttpException';
 

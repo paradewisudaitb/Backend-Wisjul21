@@ -1,6 +1,5 @@
 import { ValidationError } from 'sequelize/types';
 import
-Jurusan,
 { selectAll as getAllJurusan, getJurusanFromIDHimpunan, getJurusanFromNamaHimpunan }
   from '../models/jurusan';
 import HttpException from '../routes/middleware/HttpException';
@@ -18,7 +17,7 @@ import HttpException from '../routes/middleware/HttpException';
  */
 export const getJurusan = async (idHimpunan?: number, namaHimpunan?:string): Promise<string[]> => {
   // ga dikasih parameter
-  let hasil: Array<string> = [];
+  const hasil: Array<string> = [];
   if (!namaHimpunan && !idHimpunan) {
     (await getAllJurusan()).forEach(e => hasil.push(e.namaJurusan));
     return hasil;
