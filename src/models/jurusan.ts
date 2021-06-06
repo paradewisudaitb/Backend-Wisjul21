@@ -80,4 +80,18 @@ export const getJurusanFromIDHimpunan = async (idHimpunan: number): Promise<Juru
   });
 };
 
+export const getJurusanFromNamaHimpunan = async (namaHimpunan: string): Promise<Jurusan[]> => {
+  const res = await Himpunan.findAll({
+    where: {
+      namaHimpunan,
+    },
+    include: [
+      Jurusan
+    ],
+  });
+
+  // harusnya cmn 1 hasilnya
+  return res[0].getJurusans();
+};
+
 export default Jurusan;
