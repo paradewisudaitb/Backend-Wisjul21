@@ -56,13 +56,12 @@ Himpunan.init(
       allowNull: false,
     },
     singkatanHimpunan: {
-      type: DataTypes.STRING(16),
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
     linkFoto: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
     },
   },
