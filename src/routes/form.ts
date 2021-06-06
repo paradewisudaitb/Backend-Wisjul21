@@ -10,6 +10,12 @@ const route = Router();
 export default (app: Router): void => {
   app.use('/form', route);
 
+  /**
+   * @returns JSON: {
+   *    name: nama lengkap wisudawan,
+   *    nim: NIM wisudawan
+   * }
+   */
   route.post('/create', async (req, res, next) => {
     try {
       const w = await newWisudawan(req.body);

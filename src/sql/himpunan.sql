@@ -43,5 +43,5 @@ INSERT INTO "himpunan" ("namaHimpunan", "singkatanHimpunan", "linkFoto", "create
     ('Himpunan Mahasiswa Mikrobiologi', 'HIMAMIKRO "ARCHAEA"', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/SITHS-HIMAMIKRO-ITB-300x300.png', NOW(), NOW()),
     ('Himpunan Mahasiswa Biologi', 'NYMPHAEA', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/SITHS-HIMABIO-_Nymphaea_-ITB-300x300.jpg', NOW(), NOW()),
     ('Ikatan Mahasiswa Telekomunikasi', 'IMT "SIGNUM"', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-IMT-300x300.png', NOW(), NOW()),
-    ('Himpunan Mahasiswa Elektronik', 'HME', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-HME-ITB-255x300.jpg', NOW(), NOW()),
+    ('Himpunan Mahasiswa Elektroteknik', 'HME', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-HME-ITB-255x300.jpg', NOW(), NOW()),
     ('Himpunan Mahasiswa Informatika', 'HMIF', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-HMIF-ITB-300x200.png', NOW(), NOW());

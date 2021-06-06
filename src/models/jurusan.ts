@@ -72,7 +72,7 @@ export const getJurusanFromNama = async (nama: string): Promise<Jurusan | null> 
   });
 };
 
-export const getJurusanFromIDHimpunan = async (idHimpunan: number): Promise<Jurusan[] | null> => {
+export const getJurusanFromIDHimpunan = async (idHimpunan: number): Promise<Jurusan[]> => {
   return await Jurusan.findAll({
     where: {
       idHimpunan,

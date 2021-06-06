@@ -52,13 +52,13 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
     const e: ValidationError = _;
     if (e.errors) {
       // e adalah UniqueConstraintError
-      console.error(e.errors);
       let str = '';
       for (const eDetail of e.errors) {
         str += eDetail.message;
         str += '\n';
       }
       str += 'Jika ingin mengupdate data harap hubungi divisi Website/divis Relasi.';
+      console.error(str);
       throw new HttpException(400, str);
     } else {
       // unknown error
