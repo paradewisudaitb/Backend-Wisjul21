@@ -24,6 +24,7 @@ class Himpunan extends Model<HimpunanAttributes, HimpunanCreationAttributes>
   public idHimpunan!: number; // null assertion, `!`
   public namaHimpunan!: string;
   public singkatanHimpunan!: string;
+  public linkFoto!: string;
 
   // data pembuatan dan update
   public readonly createdAt!: Date;
@@ -55,8 +56,12 @@ Himpunan.init(
       allowNull: false,
     },
     singkatanHimpunan: {
-      type: DataTypes.STRING(16),
+      type: DataTypes.STRING,
       unique: true,
+      allowNull: false,
+    },
+    linkFoto: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
@@ -72,15 +77,16 @@ Himpunan.hasMany(Jurusan, {
   onUpdate: 'cascade',
 });
 
-export const create = async (namaHimpunan: string, singkatanHimpunan: string): Promise<Himpunan> => {
-  return await Himpunan.create({ namaHimpunan, singkatanHimpunan });
+export const create = async (namaHimpunan: string, singkatanHimpunan: string, linkFoto: string,): Promise<Himpunan> => {
+  return await Himpunan.create({ namaHimpunan, singkatanHimpunan, linkFoto });
 };
 
-export const destroy = async (namaHimpunan: string, singkatanHimpunan: string): Promise<void> => {
+export const destroy = async (namaHimpunan: string, singkatanHimpunan: string, linkFoto: string): Promise<void> => {
   await Himpunan.destroy({
     where: {
       namaHimpunan,
-      singkatanHimpunan
+      singkatanHimpunan,
+      linkFoto
     }
   });
 };

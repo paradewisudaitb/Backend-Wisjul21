@@ -5,4 +5,5 @@ export interface HimpunanAttributes {
   idHimpunan: number;
   namaHimpunan: string;
   singkatanHimpunan: string;
+  linkFoto: string;
 }

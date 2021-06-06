@@ -1,9 +1,8 @@
 import config from './config';
 import cors from 'cors';
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import db from './models';
 import routes from './routes';
-import HttpException from './routes/middleware/HttpException';
 
 const app = express();
 
