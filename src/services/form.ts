@@ -24,6 +24,11 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
     throw new HttpException(400, `Jurusan: ${wisudawanInput.jurusan} invalid`);
   }
 
+  const karya = wisudawanInput.karya?.split(',').map(e => e.trim());
+  const kontrib = wisudawanInput.kontribusi?.split(',').map(e => e.trim());
+  const lembaga = wisudawanInput.lembaga?.split(',').map(e => e.trim());
+  const prestasi = wisudawanInput.pretasi?.split(',').map(e => e.trim());
+
   try {
     return await createWisudawan(
       wisudawanInput.nim,
@@ -38,10 +43,10 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
       wisudawanInput.kotaAsal,
       wisudawanInput.tanggalLahir,
       wisudawanInput.angkatan,
-      wisudawanInput.karya,
-      wisudawanInput.kontribusi,
-      wisudawanInput.lembaga,
-      wisudawanInput.pretasi,
+      karya,
+      kontrib,
+      lembaga,
+      prestasi,
     );
   } catch (_) {
     const e: ValidationError = _;

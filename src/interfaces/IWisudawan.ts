@@ -29,8 +29,12 @@ export interface WisudawanInput {
   kotaAsal: string;
   tanggalLahir: Date;
   angkatan: number;
-  pretasi?: string[];
-  karya?: string[];
-  kontribusi?: string[];
-  lembaga?: string[];
+  /// comma delimited string
+  pretasi?: string;
+  /// comma delimited string
+  karya?: string;
+  /// comma delimited string
+  kontribusi?: string;
+  /// comma delimited string
+  lembaga?: string;
 }
