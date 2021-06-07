@@ -32,11 +32,12 @@ export default (app: Router): void => {
   });
 
   route.post('/uploadFoto', uploader.uploader.single('foto'), (req, res, next) => {
+    const fname = `[${Date.now()}]${req.file.originalname}`;
     const uploadParams = {
       Bucket: 'wisjul21',
       Body: req.file.buffer,
       ACL: 'public-read',
-      Key: `fotoWisudawan/${req.file.originalname}`,
+      Key: `fotoWisudawan/${fname}`, // filename
     };
     uploader.s3.upload(uploadParams, (err: Error, _: ManagedUpload.SendData) => {
       if (err) {
@@ -44,8 +45,8 @@ export default (app: Router): void => {
         next(err);
       }
 
-      console.log(`A file (${req.file.originalname}) has been uploaded to fotoWisudawan`);
-      res.set(201).json({ message: 'OK' });
+      console.log(`A file (${fname}) has been uploaded to fotoWisudawan`);
+      res.set(201).json({ filename: fname });
     });
   });
 };
