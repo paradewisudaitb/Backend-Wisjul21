@@ -12,4 +12,3 @@ export const s3 = new aws.S3({
   accessKeyId: config.AWS.KEY,
   secretAccessKey: config.AWS.SECRET,
 });
-export const s3 = new aws.S3({ endpoint });
