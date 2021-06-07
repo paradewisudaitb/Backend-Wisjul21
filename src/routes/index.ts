@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import example from './example';
+import form from './form';
+import jurusan from './jurusan';
 
 export default (): Router => {
   const app = Router();
 
-  example(app);
+  form(app);
+  jurusan(app);
 
   return app;
 };

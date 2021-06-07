@@ -2,11 +2,9 @@
  * Contoh service buat buka konesi ke database
  */
 
-import c from '../connections';
+import conn from '../connections/db';
 
 export default async (): Promise<number> => {
-  const conn =  c.db;
-
   try {
     const test = await conn.authenticate();
     console.log(test);
