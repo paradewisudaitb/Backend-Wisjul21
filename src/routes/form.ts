@@ -32,11 +32,12 @@ export default (app: Router): void => {
   });
 
   route.post('/uploadFoto', uploader.uploader.single('foto'), (req, res, next) => {
+    const fname = `[${Date.now()}]${req.file.originalname}`;
     const uploadParams = {
       Bucket: 'wisjul21',
       Body: req.file.buffer,
       ACL: 'public-read',
-      Key: `fotoWisudawan/${req.file.originalname}`,
+      Key: `fotoWisudawan/${fname}`, // filename
     };
     uploader.s3.upload(uploadParams, (err: Error, _: ManagedUpload.SendData) => {
       if (err) {
