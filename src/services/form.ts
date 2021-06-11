@@ -54,10 +54,8 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
     if (e.errors) {
       let str = '';
       for (const eDetail of e.errors) {
-        str += eDetail.message;
-        str += '\n';
+        str += `${eDetail.message}: ${eDetail.value}\n`;
       }
-      str += 'Jika ingin mengupdate data harap hubungi divisi Website/divis Relasi.';
       console.error(str);
       throw new HttpException(400, str);
     } else {
