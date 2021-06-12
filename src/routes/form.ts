@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { newWisudawan } from '../services/form';
-import * as uploader from '../connections/cdn';
-import { ManagedUpload } from 'aws-sdk/clients/s3';
+import { uploader, multerUpload as upload } from './middleware/uploader';
 
 const route = Router();
 
@@ -31,22 +30,15 @@ export default (app: Router): void => {
     }
   });
 
-  route.post('/uploadFoto', uploader.uploader.single('foto'), (req, res, next) => {
+  route.post('/uploadFoto', upload.single('foto'), (req, res, next) => {
     const fname = `[${Date.now()}]${req.file.originalname}`;
-    const uploadParams = {
-      Bucket: 'wisjul21',
-      Body: req.file.buffer,
-      ACL: 'public-read',
-      Key: `fotoWisudawan/${fname}`, // filename
-    };
-    uploader.s3.upload(uploadParams, (err: Error, _: ManagedUpload.SendData) => {
-      if (err) {
-        console.error(err);
-        next(err);
-      }
-
-      console.log(`A file (${fname}) has been uploaded to fotoWisudawan`);
-      res.set(201).json({ filename: fname });
-    });
+    const path = `fotoWisudawan/${fname}`;
+    try {
+      uploader(req.file, path);
+      res.status(201).send({ filename: fname });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
   });
 };
