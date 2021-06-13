@@ -22,6 +22,7 @@ import Kontribusi, {
 import Karya, {
   create as karyaCreate
 } from './karya';
+import Jurusan  from './jurusan';
 import { WisudawanAttributes } from '../interfaces/IWisudawan';
 
 class Wisudawan extends Model<WisudawanAttributes>
@@ -179,6 +180,12 @@ Wisudawan.hasMany(Karya, {
   onUpdate: 'cascade',
 });
 
+Wisudawan.hasOne  (Jurusan, {
+  foreignKey: 'idJurusan',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
+
 export const create = async (
   nim: string, 
   idJurusan: number, 
@@ -280,6 +287,14 @@ export const destroy = async (
 
 export const selectAll = async (): Promise<Wisudawan[]> => {
   return Wisudawan.findAll();
+};
+
+export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => {
+  return await Wisudawan.findAll({
+    where: {
+      nim,
+    }
+  });
 };
 
 export default Wisudawan;

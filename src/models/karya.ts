@@ -58,5 +58,13 @@ export const selectAll = async (): Promise<Karya[]> => {
   return Karya.findAll();
 };
 
+export const getKaryaFromNIM = async (nim: string): Promise<Karya[]> => {
+  return await Karya.findAll({
+    where: {
+      nim,
+    }
+  });
+};
+
 
 export default Karya;
