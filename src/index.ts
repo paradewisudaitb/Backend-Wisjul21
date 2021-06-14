@@ -10,7 +10,7 @@ const app = express();
 app.enable('trust proxy');
 if (process.env.NODE_ENV == 'production') {
   app.use(cors({
-    origin: 'https://wisjulitb.com',
+    origin: /\.?wisjulitb.com$/,
   }));
 } else {
   app.use(cors());

@@ -12,7 +12,7 @@ INSERT INTO "himpunan" ("namaHimpunan", "singkatanHimpunan", "linkFoto", "create
     ('Keluarga Mahasiswa Desain Produk', 'INDDES', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FSRD-INDDES-ITB-254x300.jpg', NOW(), NOW()),
     ('Ikatan Pemuda Pemudi Desain Grafis', 'IPPDIG', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FSRD-IPPDIG.jpg', NOW(), NOW()),
     ('Himpunan Mahasiswa Kriya', 'TERIKAT', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FSRD-terikat-ITB-300x300.jpg', NOW(), NOW()),
-    ('Visual Art Student Aggreegate', 'VASA', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FSRD-VASA-ITB-300x300.jpg', NOW(), NOW()),
+    ('Visual Art Student Aggregate', 'VASA', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FSRD-VASA-ITB-300x300.jpg', NOW(), NOW()),
     ('Himpunan Mahasiswa Teknik Kimia', 'HIMATEK', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FTI-HIMATEK-ITB-300x203.jpg', NOW(), NOW()),
     ('Himpunan Mahasiswa Fisika Teknik', 'HMFT', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FTI-HMFT-ITB-300x276.png', NOW(), NOW()),
     ('Himpunan Mahasiswa Teknik Pangan', 'HMPG', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/FTI-HMPG-ITB-300x300.png', NOW(), NOW()),

@@ -102,5 +102,4 @@ export const getJurusanFromNamaHimpunan = async (namaHimpunan: string): Promise<
   return res[0].getJurusans();
 };
 
-
 export default Jurusan;

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { newWisudawan } from '../services/form';
+import { uploader, multerUpload as upload } from './middleware/uploader';
 
 const route = Router();
 
@@ -26,6 +27,18 @@ export default (app: Router): void => {
     } catch (error) {
       console.error(error);
       next(error);
+    }
+  });
+
+  route.post('/uploadFoto', upload.single('foto'), (req, res, next) => {
+    const fname = `[${Date.now()}]${req.file.originalname}`;
+    const path = `fotoWisudawan/${fname}`;
+    try {
+      uploader(req.file, path);
+      res.status(201).send({ filename: fname });
+    } catch (err) {
+      console.log(err);
+      next(err);
     }
   });
 };
