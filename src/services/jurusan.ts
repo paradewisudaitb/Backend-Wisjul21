@@ -15,7 +15,7 @@ import HttpException from '../routes/middleware/HttpException';
  * @throws HttpExceptionn
  * @async
  */
-export const getJurusan = async (idJurusan?: number, idHimpunan?: number, namaHimpunan?:string): Promise<string[]> => {
+export const getJurusan = async (idHimpunan?: number, namaHimpunan?:string, idJurusan?: number): Promise<string[]> => {
   // ga dikasih parameter
   const hasil: Array<string> = [];
   if (!namaHimpunan && !idHimpunan && !idJurusan) {
