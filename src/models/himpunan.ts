@@ -11,6 +11,7 @@ import {
 } from 'sequelize';
 import conn from '../connections/db';
 import Jurusan from './jurusan';
+import kontenApresiasi from './kontenApresiasi';
 import { HimpunanAttributes } from '../interfaces/IHimpunan';
 /**
  * Attribut "idHimpunan" jadi optional pas manggil
@@ -36,10 +37,19 @@ class Himpunan extends Model<HimpunanAttributes, HimpunanCreationAttributes>
   public countJurusan!: HasManyCountAssociationsMixin;
   public createJurusan!: HasManyCreateAssociationMixin<Jurusan>;
 
+  // Untuk konten Apresiasi
+  public getKontenApresiasis!: HasManyGetAssociationsMixin<kontenApresiasi>;
+  public addKontenApresiasis!: HasManyAddAssociationMixin<kontenApresiasi, number>;
+  public hasKontenApresiasi!: HasManyHasAssociationMixin<kontenApresiasi, number>;
+  public countKontenApresiasi!: HasManyCountAssociationsMixin;
+  public createKontenApresiasi!: HasManyCreateAssociationMixin<kontenApresiasi>;
+
   public readonly jurusans?: Jurusan[];
+  public readonly kontenApresiasis?: kontenApresiasi[];
 
   public static associations: {
     jurusan: Association<Himpunan, Jurusan>;
+    kontenApresiasi: Association<Himpunan, kontenApresiasi>;
   };
 }
 
@@ -72,6 +82,12 @@ Himpunan.init(
 );
 
 Himpunan.hasMany(Jurusan, {
+  foreignKey: 'idHimpunan',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
+
+Himpunan.hasMany(kontenApresiasi, {
   foreignKey: 'idHimpunan',
   onDelete: 'cascade',
   onUpdate: 'cascade',
