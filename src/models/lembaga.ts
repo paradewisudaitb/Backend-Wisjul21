@@ -51,4 +51,12 @@ export const selectAll = async (): Promise<Lembaga[]> => {
   return Lembaga.findAll();
 };
 
+export const getLembagaFromNIM = async (nim: string): Promise<Lembaga[]> => {
+  return await Lembaga.findAll({
+    where: {
+      nim,
+    }
+  });
+};
+
 export default Lembaga;

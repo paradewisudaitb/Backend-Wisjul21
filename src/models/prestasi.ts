@@ -51,4 +51,12 @@ export const selectAll = async (): Promise<Prestasi[]> => {
   return Prestasi.findAll();
 };
 
+export const getPrestasiFromNIM = async (nim: string): Promise<Prestasi[]> => {
+  return await Prestasi.findAll({
+    where: {
+      nim,
+    }
+  });
+};
+
 export default Prestasi;

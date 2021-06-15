@@ -9,7 +9,7 @@
 - Jalankan `export NODE_ENV=development`
 - Jalankan `yarn`
 - Jalankan `yarn build`
-- Jalankan `yarn serve` (tekan ctrl+c untuk menghentikan)
+- Jalankan `yarn dev` (tekan ctrl+c untuk menghentikan)
 
 ## Guideline penulisan kode
 - Akhiri statement dengan titik koma (`;`)

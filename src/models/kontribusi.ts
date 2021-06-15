@@ -55,4 +55,12 @@ export const selectAll = async (): Promise<Kontribusi[]> => {
   return Kontribusi.findAll();
 };
 
+export const getKontribusiFromNIM = async (nim: string): Promise<Kontribusi[]> => {
+  return await Kontribusi.findAll({
+    where: {
+      nim,
+    }
+  });
+};
+
 export default Kontribusi;

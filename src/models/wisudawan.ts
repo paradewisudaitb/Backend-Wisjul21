@@ -1,4 +1,4 @@
-import {
+import  {
   Model,
   Association,
   HasManyGetAssociationsMixin,
@@ -7,6 +7,7 @@ import {
   HasManyCountAssociationsMixin,
   HasManyCreateAssociationMixin,
   DataTypes,
+  QueryTypes,
 } from 'sequelize';
 import conn from '../connections/db';
 import Prestasi, {
@@ -22,7 +23,9 @@ import Kontribusi, {
 import Karya, {
   create as karyaCreate
 } from './karya';
+import Jurusan  from './jurusan';
 import { WisudawanAttributes } from '../interfaces/IWisudawan';
+import HttpException from '../routes/middleware/HttpException';
 
 class Wisudawan extends Model<WisudawanAttributes>
   implements WisudawanAttributes {
@@ -179,6 +182,12 @@ Wisudawan.hasMany(Karya, {
   onUpdate: 'cascade',
 });
 
+Wisudawan.hasOne  (Jurusan, {
+  foreignKey: 'idJurusan',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
+
 export const create = async (
   nim: string, 
   idJurusan: number, 
@@ -247,32 +256,32 @@ export const create = async (
 };
 
 export const destroy = async (
-  nim: string, 
-  idJurusan: number, 
-  namaLengkap: string, 
-  namaPanggilan: string, 
-  pasfoto: string, 
-  judulTA: string, 
-  funFact: string, 
-  tipsSukses: string, 
-  email: string, 
-  kotaAsal: string, 
-  tanggalLahir: Date, 
+  nim: string,
+  idJurusan: number,
+  namaLengkap: string,
+  namaPanggilan: string,
+  pasfoto: string,
+  judulTA: string,
+  funFact: string,
+  tipsSukses: string,
+  email: string,
+  kotaAsal: string,
+  tanggalLahir: Date,
   angkatan: number
 ): Promise<void> =>{
   await Wisudawan.destroy({
     where: {
-      nim, 
-      idJurusan, 
+      nim,
+      idJurusan,
       namaLengkap,
-      namaPanggilan, 
-      pasfoto, 
-      judulTA, 
-      funFact, 
-      tipsSukses, 
-      email, 
-      kotaAsal, 
-      tanggalLahir, 
+      namaPanggilan,
+      pasfoto,
+      judulTA,
+      funFact,
+      tipsSukses,
+      email,
+      kotaAsal,
+      tanggalLahir,
       angkatan
     }
   });
@@ -280,6 +289,81 @@ export const destroy = async (
 
 export const selectAll = async (): Promise<Wisudawan[]> => {
   return Wisudawan.findAll();
+};
+
+export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => {
+  return await Wisudawan.findAll({
+    where: {
+      nim,
+    }
+  });
+};
+
+export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
+  try {
+    const res = await conn.query(`
+  SELECT nim,
+      jurusan."namaJurusan",
+      wisudawan."namaLengkap",
+      wisudawan."judulTA",
+      wisudawan.pasfoto,
+      array_agg(DISTINCT lembaga.lembaga) as "lembagaNonHMJ"
+    FROM (((((wisudawan
+      JOIN jurusan USING ("idJurusan"))
+      JOIN himpunan USING ("idHimpunan"))
+      JOIN karya USING (nim))
+      JOIN kontribusi USING (nim))
+      JOIN lembaga USING (nim))
+      WHERE himpunan."namaHimpunan" = ?
+    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap",   wisudawan."judulTA", wisudawan.pasfoto
+    ORDER BY nim;
+    `, {
+      replacements: [namaHimpunan],
+      type: QueryTypes.SELECT,
+    });
+    return res;
+  } catch (err) {
+    throw new HttpException(500, err);
+  }
+};
+
+
+export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
+  try {
+    const res = await conn.query(`
+     SELECT nim,
+         jurusan."namaJurusan",
+         himpunan."namaHimpunan",
+         wisudawan."namaLengkap",
+         wisudawan."namaPanggilan",
+         wisudawan.email,
+         wisudawan.angkatan,
+         wisudawan."tipsSukses",
+         wisudawan."kotaAsal",
+         wisudawan."tanggalLahir",
+         wisudawan."judulTA",
+         wisudawan."funFact",
+         wisudawan.pasfoto,
+         array_agg(DISTINCT karya.karya) AS "karya",
+         array_agg(DISTINCT kontribusi.kontribusi) AS "kontribusi",
+         array_agg(DISTINCT lembaga.lembaga) AS "lembaga"
+        FROM (((((wisudawan
+          JOIN jurusan USING ("idJurusan"))
+          JOIN himpunan USING ("idHimpunan"))
+          JOIN karya USING (nim))
+          JOIN kontribusi USING (nim))
+          JOIN lembaga USING (nim))
+         WHERE nim = ?
+       GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt"
+       ORDER BY wisudawan."createdAt";
+    `, {
+      replacements: [nim],
+      type: QueryTypes.SELECT,
+    });
+    return res;
+  } catch (err) {
+    throw new HttpException(500, err);
+  }
 };
 
 export default Wisudawan;
