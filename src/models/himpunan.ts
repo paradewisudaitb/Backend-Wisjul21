@@ -111,4 +111,12 @@ export const selectAll = async (): Promise<Himpunan[]> => {
   return Himpunan.findAll();
 };
 
+export const getHimpunanFromIDHimpunan = async (idHimpunan : number): Promise<Himpunan[]> => {
+  return Himpunan.findAll({
+    where : {
+      idHimpunan,
+    }
+  });
+};
+
 export default Himpunan;
