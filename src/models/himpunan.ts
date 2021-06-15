@@ -11,7 +11,6 @@ import {
 } from 'sequelize';
 import conn from '../connections/db';
 import Jurusan from './jurusan';
-import Wisudawan from './wisudawan';
 import { HimpunanAttributes } from '../interfaces/IHimpunan';
 /**
  * Attribut "idHimpunan" jadi optional pas manggil
