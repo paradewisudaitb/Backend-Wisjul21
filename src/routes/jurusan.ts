@@ -35,13 +35,16 @@ export default (app: Router): void => {
    * }
    */
   router.get('/get', async (req, res, next) => {
+    // /jurusan/get?namaHimmpunan=...
+    // ATAU
+    // /jurusan/get?idHimpunan=...
     let idHimpunan: number | undefined;
     if (req.query.id) {
       idHimpunan = parseInt(req.query.id.toString());
     }
     const namaHimpunan = req.query.nama?.toString();
     if (!idHimpunan && !namaHimpunan) {
-      const e = new HttpException(400, 'Permintaan tidak valid');
+      const e = new HttpException(400, 'Tidak bisa mencari jurusan tanpa nama ataupun id himpunan.');
       // kasih ke error handler
       next(e);
     }
