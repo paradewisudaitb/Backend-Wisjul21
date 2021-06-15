@@ -19,7 +19,7 @@ export default (app: Router): void => {
     const namaHimpunan = req.query.namaHimpunan?.toString();
     const nim = req.query.nim?.toString();
     if (namaHimpunan) {
-      try{
+      try {
         const a = await getDataToShow(namaHimpunan);
         res.json(a);
       } catch(err) {
@@ -35,5 +35,5 @@ export default (app: Router): void => {
     } else {
       res.status(400).send('Tidak bisa melakukan GET request tanpa namaHimpunan atau nim');
     }
-  }
-)};
+  });
+};
