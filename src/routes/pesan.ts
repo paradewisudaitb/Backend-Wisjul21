@@ -11,18 +11,18 @@ export default (app: Router): void => {
     // /pesan/get?nim=...
     const nim = req.query.nim?.toString();
     if (!nim) {
-        const e = new HttpException(400, 'Tidak bisa mencari pesan tanpa NIM wisudawan.');
-        next(e);
+      const e = new HttpException(400, 'Tidak bisa mencari pesan tanpa NIM wisudawan.');
+      next(e);
     } else {
       try {
         const pesan = await getPesanForNIM(nim);
         res.json(pesan);
       } catch (err) {
-          console.error(err);
-          next(err);
+        console.error(err);
+        next(err);
       }
     }
-});
+  });
 
   router.post('/new', async (req, res, next) => {
     try {
@@ -32,7 +32,7 @@ export default (app: Router): void => {
 Gagal membuat pesan karena parameter nim atau pesan tidak ada.
 nim: ${req.body.nim}
 pesan: ${req.body.pesan}
-        `)
+        `);
         next(e);
       }
       await createPesan(req.body.nim, req.body.pesan, req.body.namaPengirim);
@@ -45,5 +45,5 @@ pesan: ${req.body.pesan}
       console.error(err);
       next(err);
     }
-  })
+  });
 };

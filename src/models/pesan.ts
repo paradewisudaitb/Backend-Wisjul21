@@ -76,9 +76,9 @@ export const selectAll = async (): Promise<Pesan[]> => {
 export const getPesanForNIM = async (nim: string): Promise<Pesan[]> =>{
   // SELECT * FROM pesan INNER JOIN wisudawan WHERE nim = $nim;
   return await Pesan.findAll({
-      where: {
-        nim,
-      },
+    where: {
+      nim,
+    },
   });
 };
 
