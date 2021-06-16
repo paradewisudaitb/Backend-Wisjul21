@@ -346,7 +346,8 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
          wisudawan.pasfoto,
          array_agg(DISTINCT karya.karya) AS "karya",
          array_agg(DISTINCT kontribusi.kontribusi) AS "kontribusi",
-         array_agg(DISTINCT lembaga.lembaga) AS "lembaga"
+         array_agg(DISTINCT lembaga.lembaga) AS "lembaga",
+         array_agg(DISTINCT prestasi.prestasi) AS "prestasi"
         FROM (((((wisudawan
           JOIN jurusan USING ("idJurusan"))
           JOIN himpunan USING ("idHimpunan"))

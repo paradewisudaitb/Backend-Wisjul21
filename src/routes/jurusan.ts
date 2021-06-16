@@ -26,49 +26,31 @@ export default (app: Router): void => {
   });
 
   /**
-   * Dapetin array string nama berdasarkan nama himpunan atau id himpunan.
-   * Jika diberikan id dan nama, maka prioritas pencarian berdasarkan id.
-   * Jika diberikan keduanya dan id salah, maka dicari berdasarkan nama.
+   * Dapetin array string nama berdasarkan id himpunan.
    * Melemparkan HttpExecption
    * @returns JSON: {
    *    jurusan: array of (model) string berisi nama semua jurusan di ITB
    * }
    */
   router.get('/get', async (req, res, next) => {
-    let idHimpunan: number | undefined;
-    if (req.query.id) {
-      idHimpunan = parseInt(req.query.id.toString());
-    }
     const namaHimpunan = req.query.nama?.toString();
-    if (!idHimpunan && !namaHimpunan) {
-      const e = new HttpException(400, 'Permintaan tidak valid');
+    if (!namaHimpunan) {
+      const e = new HttpException(400, 'Tidak bisa mencari jurusan tanpa nama himpunan');
       // kasih ke error handler
       next(e);
-    }
-    let jurusan: Array<string> = [];
-    try {
-      // cek ID dulu
-      if (idHimpunan) {
-        jurusan = await getJurusan(idHimpunan);
-        if (jurusan.length == 0 && !namaHimpunan) {
-          throw new HttpException(400, `idHimpunan ${idHimpunan} tidak valid`);
-        }
-      }
+    } else {
+      try {
+        // cek ID dulu
+        // cek nama kalo id belom ada
+        const jurusan = await getJurusan(undefined, namaHimpunan);
 
-      // cek nama kalo id belom ada
-      if (jurusan.length == 0 && namaHimpunan) {
-        jurusan = await getJurusan(undefined, namaHimpunan);
+        res.json({
+          jurusan: jurusan,
+        });
+      } catch (e) {
+        console.error(e);
+        next(e);
       }
-
-      if (jurusan.length == 0) {
-        throw new HttpException(400, 'Nama atau id salah.');
-      }
-      res.json({
-        jurusan: jurusan,
-      });
-    } catch (e) {
-      console.error(e);
-      next(e);
     }
   });
 };

@@ -37,6 +37,7 @@ Pesan.init(
     },
     namaPengirim: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     pesan: {
       type: DataTypes.STRING,
