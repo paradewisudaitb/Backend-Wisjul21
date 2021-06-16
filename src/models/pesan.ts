@@ -51,6 +51,7 @@ Pesan.init(
 );
 
 export const create = async (nim: string, pesan: string, namaPengirim?: string): Promise<Pesan> => {
+  namaPengirim = namaPengirim || 'Anonymous';
   return await Pesan.create({ nim, pesan, namaPengirim });
 };
 
@@ -63,7 +64,23 @@ export const destroy = async (nim: string, pesan: string, namaPengirim?: string)
 };
 
 export const selectAll = async (): Promise<Pesan[]> => {
-  return Pesan.findAll();
+  return await Pesan.findAll();
+};
+
+
+/**
+ * buat fungsi mencari pesan untuk NIM tertentu
+ * @param nim NIM tujuan
+ * @return a promise of array of Pesan
+ * @async
+ */
+export const getPesanForNIM = async (nim: string): Promise<Pesan[]> =>{
+  // SELECT * FROM pesan INNER JOIN wisudawan WHERE nim = $nim;
+  return await Pesan.findAll({
+    where: {
+      nim,
+    },
+  });
 };
 
 export default Pesan;

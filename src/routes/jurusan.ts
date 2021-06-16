@@ -40,10 +40,7 @@ export default (app: Router): void => {
       next(e);
     } else {
       try {
-        // cek ID dulu
-        // cek nama kalo id belom ada
-        const jurusan = await getJurusan(undefined, namaHimpunan);
-
+        const jurusan = await getJurusan(namaHimpunan);
         res.json({
           jurusan: jurusan,
         });
