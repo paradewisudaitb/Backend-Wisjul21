@@ -306,7 +306,7 @@ export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
       jurusan."namaJurusan",
       wisudawan."namaLengkap",
       wisudawan."judulTA",
-      wisudawan.pasfoto,
+      wisudawan.pasfoto
     FROM ((wisudawan
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
@@ -348,7 +348,7 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
           JOIN jurusan USING ("idJurusan"))
           JOIN himpunan USING ("idHimpunan"))
           JOIN karya USING (nim))
-          JOIN prestasi USING(prestasi))
+          JOIN prestasi USING(nim))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
          WHERE nim = ?
