@@ -307,15 +307,11 @@ export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
       wisudawan."namaLengkap",
       wisudawan."judulTA",
       wisudawan.pasfoto,
-      array_agg(DISTINCT lembaga.lembaga) as "lembagaNonHMJ"
-    FROM (((((wisudawan
+    FROM ((wisudawan
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
-      JOIN karya USING (nim))
-      JOIN kontribusi USING (nim))
-      JOIN lembaga USING (nim))
       WHERE himpunan."namaHimpunan" = ?
-    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap",   wisudawan."judulTA", wisudawan.pasfoto
+    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `, {
       replacements: [namaHimpunan],
@@ -348,10 +344,11 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
          array_agg(DISTINCT kontribusi.kontribusi) AS "kontribusi",
          array_agg(DISTINCT lembaga.lembaga) AS "lembaga",
          array_agg(DISTINCT prestasi.prestasi) AS "prestasi"
-        FROM (((((wisudawan
+        FROM ((((((wisudawan
           JOIN jurusan USING ("idJurusan"))
           JOIN himpunan USING ("idHimpunan"))
           JOIN karya USING (nim))
+          JOIN prestasi USING(prestasi))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
          WHERE nim = ?
