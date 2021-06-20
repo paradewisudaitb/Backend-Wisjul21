@@ -194,17 +194,17 @@ Wisudawan.hasOne  (Jurusan, {
 });
 
 export const create = async (
-  nim: string, 
-  idJurusan: number, 
-  namaLengkap: string, 
-  namaPanggilan: string, 
-  pasfoto: string, 
-  judulTA: string, 
-  funFact: string, 
-  tipsSukses: string, 
-  email: string, 
-  kotaAsal: string, 
-  tanggalLahir: Date, 
+  nim: string,
+  idJurusan: number,
+  namaLengkap: string,
+  namaPanggilan: string,
+  pasfoto: string,
+  judulTA: string,
+  funFact: string,
+  tipsSukses: string,
+  email: string,
+  kotaAsal: string,
+  tanggalLahir: Date,
   angkatan: number,
   nonhim: boolean,
   karya?: string[],
@@ -213,17 +213,17 @@ export const create = async (
   prestasi?: string[]
 ): Promise<Wisudawan> => {
   const wisudawan = await Wisudawan.create({
-    nim, 
-    idJurusan, 
+    nim,
+    idJurusan,
     namaLengkap,
-    namaPanggilan, 
-    pasfoto, 
-    judulTA, 
-    funFact, 
-    tipsSukses, 
-    email, 
-    kotaAsal, 
-    tanggalLahir, 
+    namaPanggilan,
+    pasfoto,
+    judulTA,
+    funFact,
+    tipsSukses,
+    email,
+    kotaAsal,
+    tanggalLahir,
     angkatan,
     nonhim
   });
@@ -352,79 +352,6 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
           JOIN lembaga USING (nim))
          WHERE nim = ?
        GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt", wisudawan.nonhim
-       ORDER BY wisudawan."createdAt";
-    `, {
-      replacements: [nim],
-      type: QueryTypes.SELECT,
-    });
-    return res;
-  } catch (err) {
-    throw new HttpException(500, err);
-  }
-};
-
-export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => {
-  return await Wisudawan.findAll({
-    where: {
-      nim,
-    }
-  });
-};
-
-export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
-  try {
-    const res = await conn.query(`
-  SELECT nim,
-      jurusan."namaJurusan",
-      wisudawan."namaLengkap",
-      wisudawan."judulTA",
-      wisudawan.pasfoto
-    FROM ((wisudawan
-      JOIN jurusan USING ("idJurusan"))
-      JOIN himpunan USING ("idHimpunan"))
-      WHERE himpunan."namaHimpunan" = ?
-    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
-    ORDER BY nim;
-    `, {
-      replacements: [namaHimpunan],
-      type: QueryTypes.SELECT,
-    });
-    return res;
-  } catch (err) {
-    throw new HttpException(500, err);
-  }
-};
-
-
-export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
-  try {
-    const res = await conn.query(`
-     SELECT nim,
-         jurusan."namaJurusan",
-         himpunan."namaHimpunan",
-         wisudawan."namaLengkap",
-         wisudawan."namaPanggilan",
-         wisudawan.email,
-         wisudawan.angkatan,
-         wisudawan."tipsSukses",
-         wisudawan."kotaAsal",
-         wisudawan."tanggalLahir",
-         wisudawan."judulTA",
-         wisudawan."funFact",
-         wisudawan.pasfoto,
-         array_agg(DISTINCT karya.karya) AS "karya",
-         array_agg(DISTINCT kontribusi.kontribusi) AS "kontribusi",
-         array_agg(DISTINCT lembaga.lembaga) AS "lembaga",
-         array_agg(DISTINCT prestasi.prestasi) AS "prestasi"
-        FROM ((((((wisudawan
-          JOIN jurusan USING ("idJurusan"))
-          JOIN himpunan USING ("idHimpunan"))
-          JOIN karya USING (nim))
-          JOIN prestasi USING(nim))
-          JOIN kontribusi USING (nim))
-          JOIN lembaga USING (nim))
-         WHERE nim = ?
-       GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt"
        ORDER BY wisudawan."createdAt";
     `, {
       replacements: [nim],

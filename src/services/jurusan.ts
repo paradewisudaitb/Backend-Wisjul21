@@ -1,6 +1,6 @@
 import { ValidationError } from 'sequelize/types';
 import
-{ selectAll as getAllJurusan, getJurusanFromIDHimpunan, getJurusanFromNamaHimpunan, getJurusanFromIDJurusan }
+{ selectAll as getAllJurusan, getJurusanFromNamaHimpunan, getJurusanFromIDJurusan }
   from '../models/jurusan';
 import HttpException from '../routes/middleware/HttpException';
 
