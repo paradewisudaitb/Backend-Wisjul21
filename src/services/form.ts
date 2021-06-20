@@ -27,7 +27,7 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
   const karya = wisudawanInput.karya?.split(',').map(e => e.trim());
   const kontrib = wisudawanInput.kontribusi?.split(',').map(e => e.trim());
   const lembaga = wisudawanInput.lembaga?.split(',').map(e => e.trim());
-  const prestasi = wisudawanInput.pretasi?.split(',').map(e => e.trim());
+  const prestasi = wisudawanInput.prestasi?.split(',').map(e => e.trim());
 
   try {
     return await createWisudawan(

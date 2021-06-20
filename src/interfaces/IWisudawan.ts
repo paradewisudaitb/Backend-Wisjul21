@@ -32,7 +32,7 @@ export interface WisudawanInput {
   angkatan: number;
   nonhim: boolean;
   /// comma delimited string
-  pretasi?: string;
+  prestasi?: string;
   /// comma delimited string
   karya?: string;
   /// comma delimited string
