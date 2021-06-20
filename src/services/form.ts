@@ -43,6 +43,7 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
       wisudawanInput.kotaAsal,
       wisudawanInput.tanggalLahir,
       wisudawanInput.angkatan,
+      wisudawanInput.nonhim,
       karya,
       kontrib,
       lembaga,

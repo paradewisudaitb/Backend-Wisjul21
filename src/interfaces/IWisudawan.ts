@@ -14,6 +14,7 @@ export interface WisudawanAttributes {
   kotaAsal: string;
   tanggalLahir: Date;
   angkatan: number;
+  nonhim: boolean;
 }
 
 export interface WisudawanInput {
@@ -29,6 +30,7 @@ export interface WisudawanInput {
   kotaAsal: string;
   tanggalLahir: Date;
   angkatan: number;
+  nonhim: boolean;
   /// comma delimited string
   pretasi?: string;
   /// comma delimited string

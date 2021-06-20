@@ -21,7 +21,7 @@ export default (app: Router): void => {
     try {
       const w = await newWisudawan(req.body);
       res.status(201).json({
-        name: w.namaLengkap,
+        nama: w.namaLengkap,
         nim: w.nim,
       });
     } catch (error) {

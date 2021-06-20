@@ -42,6 +42,7 @@ class Wisudawan extends Model<WisudawanAttributes>
   public kotaAsal!: string;
   public tanggalLahir!: Date;//gatau date di ts apa
   public angkatan!: number;
+  public nonhim!: boolean;
 
   // data pembuatan dan update
   public readonly createdAt!: Date;
@@ -145,6 +146,10 @@ Wisudawan.init(
       type: DataTypes.INTEGER, // 16, 17, 18, ...
       allowNull: false
     },
+    nonhim: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   },
   {
     tableName: 'wisudawan',
@@ -201,6 +206,7 @@ export const create = async (
   kotaAsal: string, 
   tanggalLahir: Date, 
   angkatan: number,
+  nonhim: boolean,
   karya?: string[],
   kontribusi?: string[],
   lembaga?: string[],
@@ -219,6 +225,7 @@ export const create = async (
     kotaAsal, 
     tanggalLahir, 
     angkatan,
+    nonhim
   });
 
   if (!lembaga) {// ga ada karya
@@ -255,38 +262,6 @@ export const create = async (
   return wisudawan;
 };
 
-export const destroy = async (
-  nim: string,
-  idJurusan: number,
-  namaLengkap: string,
-  namaPanggilan: string,
-  pasfoto: string,
-  judulTA: string,
-  funFact: string,
-  tipsSukses: string,
-  email: string,
-  kotaAsal: string,
-  tanggalLahir: Date,
-  angkatan: number
-): Promise<void> =>{
-  await Wisudawan.destroy({
-    where: {
-      nim,
-      idJurusan,
-      namaLengkap,
-      namaPanggilan,
-      pasfoto,
-      judulTA,
-      funFact,
-      tipsSukses,
-      email,
-      kotaAsal,
-      tanggalLahir,
-      angkatan
-    }
-  });
-};
-
 export const selectAll = async (): Promise<Wisudawan[]> => {
   return Wisudawan.findAll();
 };
@@ -299,7 +274,7 @@ export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => 
   });
 };
 
-export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
+export const getDataOfHimpunan = async (namaHimpunan: string): Promise<any> => {
   try {
     const res = await conn.query(`
   SELECT nim,
@@ -310,7 +285,31 @@ export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
     FROM ((wisudawan
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
-      WHERE himpunan."namaHimpunan" = ?
+    WHERE himpunan."namaHimpunan" = ? AND wisudawan.nonhim = false
+    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
+    ORDER BY nim;
+    `, {
+      replacements: [namaHimpunan],
+      type: QueryTypes.SELECT,
+    });
+    return res;
+  } catch (err) {
+    throw new HttpException(500, err);
+  }
+};
+
+export const getDataOfNonHimpunan = async (namaHimpunan: string): Promise<any> => {
+  try {
+    const res = await conn.query(`
+  SELECT nim,
+      jurusan."namaJurusan",
+      wisudawan."namaLengkap",
+      wisudawan."judulTA",
+      wisudawan.pasfoto
+    FROM ((wisudawan
+      JOIN jurusan USING ("idJurusan"))
+      JOIN himpunan USING ("idHimpunan"))
+    WHERE wisudawan.nonhim = true
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `, {
@@ -346,13 +345,13 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
          array_agg(DISTINCT prestasi.prestasi) AS "prestasi"
         FROM ((((((wisudawan
           JOIN jurusan USING ("idJurusan"))
-          JOIN himpunan USING ("idHimpunan"))
+          JOIN himpunan ON ((wisudawan.nonhim = himpunan.nonhim AND wisudawan.nonhim = true) OR (jurusan."idHimpunan" = himpunan."idHimpunan" AND wisudawan.nonhim = false)))
           JOIN karya USING (nim))
           JOIN prestasi USING(nim))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
          WHERE nim = ?
-       GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt"
+       GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt", wisudawan.nonhim
        ORDER BY wisudawan."createdAt";
     `, {
       replacements: [nim],
