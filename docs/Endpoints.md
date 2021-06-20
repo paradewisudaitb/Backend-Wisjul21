@@ -19,6 +19,7 @@ Content-Type: application/json
   kotaAsal: string,
   tanggalLahir: Date,
   angkatan: number,
+  nonhim: boolean,
   /// comma delimited string
   pretasi?: string,
   /// comma delimited string

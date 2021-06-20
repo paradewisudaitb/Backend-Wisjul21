@@ -28,8 +28,9 @@
   "scripts": {
     "build": "yarn run tsc",
     "start": "node build/index.js",
-    "dev": "nodemon build/index.js",
-    "lint": "yarn run eslint src/"
+    "dev": "nodemon",
+    "lint": "yarn run eslint src/",
+    "clean": "rm -rf build/"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.25.0",
