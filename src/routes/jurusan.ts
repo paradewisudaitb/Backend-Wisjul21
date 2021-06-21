@@ -15,7 +15,6 @@ export default (app: Router): void => {
   router.get('/getAll', async (req, res, next) => {
     try {
       const allJurusan = await getJurusan();
-      console.log(allJurusan);
       res.json({
         jurusan: allJurusan,
       });

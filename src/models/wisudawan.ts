@@ -232,6 +232,7 @@ export const create = async (
     wisudawan.addLembagas(await lembagaCreate(nim, '-'));
   } else {
     for (const lem of lembaga) {
+      if (lem == '') continue;
       wisudawan.addLembagas(await lembagaCreate(nim, lem));
     }
   }
@@ -240,6 +241,7 @@ export const create = async (
     wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
   } else {
     for (const lem of kontribusi) {
+      if (lem == '') continue;
       wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
     }
   }
@@ -248,6 +250,7 @@ export const create = async (
     wisudawan.addKaryas(await karyaCreate(nim, '-'));
   } else {
     for (const lem of karya) {
+      if (lem == '') continue;
       wisudawan.addKaryas(await karyaCreate(nim, lem));
     }
   }
@@ -256,6 +259,7 @@ export const create = async (
     wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
   } else {
     for (const pres of prestasi) {
+      if (pres == '') continue;
       wisudawan.addPrestasis(await prestasiCreate(nim, pres));
     }
   }
