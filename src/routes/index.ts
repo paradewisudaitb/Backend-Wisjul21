@@ -3,7 +3,7 @@ import form from './form';
 import jurusan from './jurusan';
 import pesan from './pesan';
 import wisudawan from './dataWisudawan';
-
+import kontenApresiasi from './kontenApresiasi';
 export default (): Router => {
   const app = Router();
 
@@ -11,6 +11,6 @@ export default (): Router => {
   jurusan(app);
   pesan(app);
   wisudawan(app);
-
+  kontenApresiasi(app);
   return app;
 };

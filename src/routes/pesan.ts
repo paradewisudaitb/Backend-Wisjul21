@@ -39,7 +39,7 @@ pesan: ${req.body.pesan}
       res.status(201).json({
         penerima: req.body.nim,
         isi: req.body.pesan,
-        pengirim: req.body.pengirim || 'Anonymous'
+        pengirim: req.body.namaPengirim || 'Anonymous'
       });
     } catch (err) {
       console.error(err);
