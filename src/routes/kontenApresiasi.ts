@@ -10,7 +10,7 @@ export default (app: Router): void => {
     app.use('/kontenApresiasi', router);
 
     router.post('/uploadKonten', upload.single('kontenApresiasi'), (req, res, next) => {
-        const namaHimpunan = req.body.nama?.toString();
+        const namaHimpunan = req.body.nama;
         const tipeApresiasi = req.body.tipeApresiasi;
         const idHimpunan = 7; //untuk testing pake idHimpunan Himatika
         const fname = `[${Date.now()}]${req.file.originalname}`;
