@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { newWisudawan } from '../services/form';
+import HttpException from './middleware/HttpException';
 import { uploader, multerUpload as upload } from './middleware/uploader';
 
 const route = Router();
@@ -31,14 +32,18 @@ export default (app: Router): void => {
   });
 
   route.post('/uploadFoto', upload.single('foto'), (req, res, next) => {
-    const fname = `[${Date.now()}]${req.file.originalname}`;
-    const path = `fotoWisudawan/${fname}`;
-    try {
-      uploader(req.file, path);
-      res.status(201).send({ filename: fname });
-    } catch (err) {
-      console.log(err);
-      next(err);
+    if (req.file) {
+      const fname = `[${Date.now()}]${req.file.originalname}`;
+      const path = `fotoWisudawan/${fname}`;
+      try {
+        uploader(req.file, path);
+        res.status(201).send({ filename: fname });
+      } catch (err) {
+        console.log(err);
+        next(err);
+      }
+    } else {
+      next(new HttpException(400, 'Tidak ada file yang diupload.'))
     }
   });
 };
