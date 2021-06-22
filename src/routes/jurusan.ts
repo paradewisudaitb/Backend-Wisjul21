@@ -19,7 +19,6 @@ export default (app: Router): void => {
         jurusan: allJurusan,
       });
     } catch (e) {
-      console.error(e);
       next(e);
     }
   });
@@ -44,7 +43,6 @@ export default (app: Router): void => {
           jurusan: jurusan,
         });
       } catch (e) {
-        console.error(e);
         next(e);
       }
     }
