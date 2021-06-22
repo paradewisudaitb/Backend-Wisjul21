@@ -19,6 +19,7 @@ Content-Type: application/json
   kotaAsal: string,
   tanggalLahir: Date,
   angkatan: number,
+  nonhim: boolean,
   /// comma delimited string
   pretasi?: string,
   /// comma delimited string
@@ -85,7 +86,7 @@ lengkap himpunan)
       namaJurusan: string,
       namaLengkap: string,
       pasfoto: string,
-      lembagaNonHMJ: array of string
+      lembagaNonHMJ: string[]
   },
 ]
 ```
@@ -112,10 +113,10 @@ lengkap himpunan)
       judulTA: string,
       funFact: string,
       pasfoto: string
-      karya: array of string,
-      kontribusi: array of string,
-      lembaga: array of string,
-      prestasi: array of string
+      karya: string[],
+      kontribusi: string[],
+      lembaga: string[],
+      prestasi: string[]
   }
 ]
 ```
@@ -130,7 +131,7 @@ lengkap himpunan)
 - Response: JSON, code 200
 ```ts
 {
-  jurusan: array of string
+  jurusan: string[]
 }
 ```
 
@@ -142,7 +143,7 @@ lengkap himpunan)
 - Response: JSON, code 200
 ```ts
 {
-  jurusan: array of string
+  jurusan: string[]
 }
 ```
 
@@ -180,7 +181,9 @@ namaPengirim boleh dikosongin, kalau kosog otomatis jadi 'Anonymous'
     idPesan: string,
     nim: string,
     namaPengirim: string,
-    pesan: string
+    pesan: string,
+    createdAt: Date,
+    updatedAt: Date
   },
 ]
 ```
@@ -239,3 +242,40 @@ await fetch(`${API_URL}/kontenApresiasi/uploadKonten`, {
 ]
 ```
     - ada `,` artinya bukan cmn 1 elemen
+## Himpunan-related
+### Get all
+- Endpoint: `/himpunan/getAll`
+- Method: GET
+- Request query: none
+- Response: Array of JSON, code 200
+```ts
+[
+  {
+    idHimpunan: number,
+    linkFoto: string,
+    namaHimpunan: string,
+    singkatanHimpunan: string,
+    createdAt: Date,
+    updatedAt: Date
+  },
+]
+```
+    - Array bisa >= 0 elemen
+    - nama pengirim ga mungkin kosong; either yang "beneran" atau "anonymous"
+### Himpunan sebuah fakultas
+- Endpoint: `/himpunan/get?fakultas=...` (bagian `...` diisi singkatan fakultas)
+- Method: GET
+- Request query: `fakultas` (diisi singkatan fakultas: sith, stei, dll)
+- Response: Array of JSON, code 200
+```ts
+[
+  {
+    namaHimpunan: string,
+    singkatanHimpunan: string
+    linkFoto: string,
+    jurusan: string[],
+  },
+]
+```
+    - Array bisa >= 0 elemen
+    - Singkatan fakultas boleh kapital boleh tidak

@@ -1,0 +1,283 @@
+[33mcommit 44e56087a9cb42df32ba9461b0b7843b801dde40[m[33m ([m[1;36mHEAD -> [m[1;32mkontenApresiasi[m[33m)[m
+Merge: 4b7376e c905767
+Author: Jeremy Aditya <sasmitajeremyaditya@gmail.com>
+Date:   Wed Jun 23 00:23:34 2021 +0700
+
+    revisi endpoint kontenApresiasi dan update Endpoints.md
+
+[33mcommit 4b7376e248ca4a74b936f11746e99f037dd0bb53[m
+Author: Jeremy Aditya <sasmitajeremyaditya@gmail.com>
+Date:   Wed Jun 23 00:07:23 2021 +0700
+
+    revisi endpoint kontenApresiasi dan update Endpoints.md
+
+[33mcommit c905767310a43f7bfb24faec15c8cbf7589038e9[m
+Author: Josep Marcello <jspmarcello@live.com>
+Date:   Tue Jun 22 20:57:20 2021 +0700
+
+    fix: benerin package.json
+
+[33mcommit aa429fcc62234b06ce023f0ccd5e7f6f34bc4b84[m
+Author: Josep Marcello <jspmarcello@live.com>
+Date:   Tue Jun 22 20:49:42 2021 +0700
+
+    update dockerfile
+
+[33mcommit c1e3223ddfb30412b989006d46552a941e0b3bd5[m
+Author: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+Date:   Tue Jun 22 19:05:36 2021 +0700
+
+    Feat: logger (#22)
+    
+    * feat: set up logger and split files better
+    
+    * fix: update loggerStream
+    
+    * add morgan-body
+    
+    * feat: add custom error handler for express
+    
+    * fix: linting
+
+[33mcommit ba8660f49b80b7132b8f7436500efaa70dd69eda[m
+Author: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+Date:   Tue Jun 22 18:44:42 2021 +0700
+
+    Tambahin route buat dapetin data himpunan berdasarkan fakultas (#21)
+    
+    * Tambah dapetin data wisudawan, nonhim di form, dan pesan (#17)
+    
+    * Tambah access key ke config (#10)
+    
+    
+    * semoga bisa ;-;
+    
+    tambah aws acccess keys ke config
+    
+    * fix: change uploader filename to remove filename colission (#11)
+    
+    * fix: perjelas error message ketika form gagal
+    
+    * feat: uploader middleware
+    
+    * chore: update README and env example
+    
+    * add kontenApresiasi model
+    
+    * Feat: Tambah endpoint wisudawan (#14)
+    
+    * feat: tambah route untuk bikin user baru
+    
+    * fix: remove potentially leaky endpoint dan benerin naming route
+    
+    * fix: CORS for staging and add NODE_ENV to .env.example
+    
+    * add linkFoto attribute to himpunan
+    
+    * fix: tambah error menambahkan wisudawan dengan NIM yang sudah ada
+    
+    * fix: Bagusin output error untuk data yang harus unik
+    
+    nambah jsdoc jg :D
+    
+    * fix: change input wisudawan, manually split string
+    
+    * chore: tambah file sql buat masukin jurusan dan himpunan
+    
+    * feat: tambah fungsi antara buat cari jurusan
+    
+    bisa dari id himpunan, nama himpunan
+    
+    * feat: route buat cari nama jurusan
+    
+    * chore: lint
+    
+    * add some routing and service
+    
+    * routing for datamahasiswa
+    
+    * coba tambahin data wisudawan
+    
+    * endpoint data wisudawan to show
+    
+    * Coba benerin eslint
+    
+    * Delete wisudawan.ts
+    
+    Co-authored-by: Josep Marcello <jspmarcello@live.com>
+    Co-authored-by: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+    
+    * feat: tambah endpoint untuk tulis dan baca pesan (#15)
+    
+    * tambah endpoint untuk tulis dan baca pesan
+    
+    * Delete package-lock.json
+    
+    * crlf to lf
+    
+    Co-authored-by: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+    
+    * chore: add docs for endpoints & optimize some code
+    
+    * smol fix on getting wisudawan data
+    
+    * add TPB as himpunan
+    
+    * fix: dapetin data wisudawan dan himpunan
+    
+    * Ubah database wisudawan untuk nonhim
+    
+    * fix: merge error
+    
+    Co-authored-by: Jeremia Axel <57858415+jeremiaaxel@users.noreply.github.com>
+    Co-authored-by: mhmmdjafarg <mjafarashadiq712@gmail.com>
+    Co-authored-by: Rehagana Kevin Christian Sembiring <54271299+rehagana16@users.noreply.github.com>
+    Co-authored-by: Jeremyaditya <40911426+Jeremyaditya@users.noreply.github.com>
+    Co-authored-by: Rehagana16 <rehaganak@gmail.com>
+    
+    * fix: bug ga record prestasi wisudwan  (#18)
+    
+    * Tambah access key ke config (#10)
+    
+    
+    * semoga bisa ;-;
+    
+    tambah aws acccess keys ke config
+    
+    * fix: change uploader filename to remove filename colission (#11)
+    
+    * fix: perjelas error message ketika form gagal
+    
+    * feat: uploader middleware
+    
+    * chore: update README and env example
+    
+    * add kontenApresiasi model
+    
+    * Feat: Tambah endpoint wisudawan (#14)
+    
+    * feat: tambah route untuk bikin user baru
+    
+    * fix: remove potentially leaky endpoint dan benerin naming route
+    
+    * fix: CORS for staging and add NODE_ENV to .env.example
+    
+    * add linkFoto attribute to himpunan
+    
+    * fix: tambah error menambahkan wisudawan dengan NIM yang sudah ada
+    
+    * fix: Bagusin output error untuk data yang harus unik
+    
+    nambah jsdoc jg :D
+    
+    * fix: change input wisudawan, manually split string
+    
+    * chore: tambah file sql buat masukin jurusan dan himpunan
+    
+    * feat: tambah fungsi antara buat cari jurusan
+    
+    bisa dari id himpunan, nama himpunan
+    
+    * feat: route buat cari nama jurusan
+    
+    * chore: lint
+    
+    * add some routing and service
+    
+    * routing for datamahasiswa
+    
+    * coba tambahin data wisudawan
+    
+    * endpoint data wisudawan to show
+    
+    * Coba benerin eslint
+    
+    * Delete wisudawan.ts
+    
+    Co-authored-by: Josep Marcello <jspmarcello@live.com>
+    Co-authored-by: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+    
+    * feat: tambah endpoint untuk tulis dan baca pesan (#15)
+    
+    * tambah endpoint untuk tulis dan baca pesan
+    
+    * Delete package-lock.json
+    
+    * crlf to lf
+    
+    Co-authored-by: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+    
+    * chore: add docs for endpoints & optimize some code
+    
+    * smol fix on getting wisudawan data
+    
+    * add TPB as himpunan
+    
+    * fix: dapetin data wisudawan dan himpunan
+    
+    * Ubah database wisudawan untuk nonhim
+    
+    * fix: merge error
+    
+    * fix: bug ga record prestasi wisudwan
+    
+    Co-authored-by: Jeremia Axel <57858415+jeremiaaxel@users.noreply.github.com>
+    Co-authored-by: mhmmdjafarg <mjafarashadiq712@gmail.com>
+    Co-authored-by: Rehagana Kevin Christian Sembiring <54271299+rehagana16@users.noreply.github.com>
+    Co-authored-by: Jeremyaditya <40911426+Jeremyaditya@users.noreply.github.com>
+    Co-authored-by: Rehagana16 <rehaganak@gmail.com>
+    
+    * feat: Tambah route untuk dapetin himpunan suatu fakultas
+    
+    * docs
+    
+    * fix: linting
+    
+    Co-authored-by: Jeremia Axel <57858415+jeremiaaxel@users.noreply.github.com>
+    Co-authored-by: mhmmdjafarg <mjafarashadiq712@gmail.com>
+    Co-authored-by: Rehagana Kevin Christian Sembiring <54271299+rehagana16@users.noreply.github.com>
+    Co-authored-by: Jeremyaditya <40911426+Jeremyaditya@users.noreply.github.com>
+    Co-authored-by: Rehagana16 <rehaganak@gmail.com>
+
+[33mcommit 186697faae7125b40d72329700cfa787548c523a[m
+Author: Josep Marcello <jspmarcello@live.com>
+Date:   Tue Jun 22 13:14:31 2021 +0700
+
+    update docs
+
+[33mcommit e3df3e0f969bcd405f5c9a33f64eab4e8a2a024e[m[33m ([m[1;31morigin/kontenApresiasi[m[33m)[m
+Author: Jeremy Aditya <sasmitajeremyaditya@gmail.com>
+Date:   Mon Jun 21 20:24:15 2021 +0700
+
+    Tambah endpoint uploader dan endpoint cari konten Apresiasi HMJ
+
+[33mcommit d20eb477e780962d328e588dd4b3b891480e3be6[m
+Author: Josep Marcello <57025993+jspmarc@users.noreply.github.com>
+Date:   Mon Jun 21 14:57:05 2021 +0700
+
+    samain network (#19)
+    
+    * Tambah dapetin data wisudawan, nonhim di form, dan pesan (#17)
+    
+    * Tambah access key ke config (#10)
+    
+    
+    * semoga bisa ;-;
+    
+    tambah aws acccess keys ke config
+    
+    * fix: change uploader filename to remove filename colission (#11)
+    
+    * fix: perjelas error message ketika form gagal
+    
+    * feat: uploader middleware
+    
+    * chore: update README and env example
+    
+    * add kontenApresiasi model
+    
+    * Feat: Tambah endpoint wisudawan (#14)
+    
+    * feat: tambah route untuk bikin user baru
+    
+    * fix: remove potentially leaky endpoint dan benerin naming rou

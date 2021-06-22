@@ -27,7 +27,7 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
   const karya = wisudawanInput.karya?.split(',').map(e => e.trim());
   const kontrib = wisudawanInput.kontribusi?.split(',').map(e => e.trim());
   const lembaga = wisudawanInput.lembaga?.split(',').map(e => e.trim());
-  const prestasi = wisudawanInput.pretasi?.split(',').map(e => e.trim());
+  const prestasi = wisudawanInput.prestasi?.split(',').map(e => e.trim());
 
   try {
     return await createWisudawan(
@@ -43,6 +43,7 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
       wisudawanInput.kotaAsal,
       wisudawanInput.tanggalLahir,
       wisudawanInput.angkatan,
+      wisudawanInput.nonhim,
       karya,
       kontrib,
       lembaga,
@@ -56,7 +57,6 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
       for (const eDetail of e.errors) {
         str += `${eDetail.message}: ${eDetail.value}\n`;
       }
-      str += 'Jika ingin mengupdate data harap hubungi divisi Website/divis Relasi.';
       console.error(str);
       throw new HttpException(400, str);
     } else {

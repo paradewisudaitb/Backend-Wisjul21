@@ -44,4 +44,17 @@ INSERT INTO "himpunan" ("namaHimpunan", "singkatanHimpunan", "linkFoto", "create
     ('Himpunan Mahasiswa Biologi', 'NYMPHAEA', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/SITHS-HIMABIO-_Nymphaea_-ITB-300x300.jpg', NOW(), NOW()),
     ('Ikatan Mahasiswa Telekomunikasi', 'IMT "SIGNUM"', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-IMT-300x300.png', NOW(), NOW()),
     ('Himpunan Mahasiswa Elektroteknik', 'HME', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-HME-ITB-255x300.jpg', NOW(), NOW()),
-    ('Himpunan Mahasiswa Informatika', 'HMIF', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-HMIF-ITB-300x200.png', NOW(), NOW());
+    ('Himpunan Mahasiswa Informatika', 'HMIF', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/09/STEI-HMIF-ITB-300x200.png', NOW(), NOW()),
+    ('Fakultas Ilmu dan Teknologi Kebumian', 'FITB', 'https://lh5.googleusercontent.com/NFqrfvYZAreqekaVwDWinb4IPEF0uxKSJbbZVK6GdKNPUyvI908A7vkp4cJlvTswF-UTcDgPjFSDUo9_UJDM=w1920-h950-rw', NOW(), NOW()),
+    ('Fakultas Matematika dan Ilmu Pengetahuan Alam', 'FMIPA', 'https://lh6.googleusercontent.com/-jTS5ZpHB9M_9ua7iAfWgQDfsANRcTay9vI6wttVsYUjr-PEtn8mUxSkxh-NzJMyvMUy5ctahH0LqFUh6uuq=w1920-h950-rw', NOW(), NOW()),
+    ('Fakultas Seni Rupa dan Desain', 'FSRD', 'https://lh3.googleusercontent.com/981GN-sELD6FNVvilXUmKlbKQinwR8a5bzN2PMlDwMD5I5KgN3gifWCLE9shQNUVVHdrYGgdzFW2a-LaVnOT=w1920-h950-rw', NOW(), NOW()),
+    ('Fakultas Teknologi Industri', 'FTI', 'https://lh3.googleusercontent.com/RdROS3Ngijm56SyAeULXn8Mq_q7GXuSZczQmUdpF3gLREkgref7oABsasnMMpn2bJDfMpSGmyijHO2y0GJ2N=w1920-h950-rw', NOW(), NOW()),
+    ('Fakultas Teknik Mesin dan Dirgantara', 'FTMD', 'https://km.itb.ac.id/wp/wp-content/uploads/2020/10/FTMD-20-300x300.jpg', NOW(), NOW()),
+    ('Fakultas Teknik Sipil dan Lingkungan', 'FTSL', 'https://lh4.googleusercontent.com/HoF1RwtS2r-kMJHPuuygIOJXnZnftaaaZ6e6Z2W2oXW5PeeBLELgfZeU5mTm-RrGgQMbznBrdOZwjocFpDz0=w1920-h950-rw', NOW(), NOW()),
+    ('Fakultas Teknik Pertambangan dan Perminyakan', 'FTTM', 'https://lh5.googleusercontent.com/KrxjoL9s6ye7ZE89te8gLb5_42mHokmMdy7YPwVWQ6LInLC5oDoW9Jjqy4HfJCzsUoC5DdEmqzoaP7WvVX0K=w1920-h950-rw', NOW(), NOW()),
+    ('Sekolah Arsitektur, Perencanaan dan Pengembangan Kebijakan', 'SAPPK', 'https://lh3.googleusercontent.com/na2aTiA63LG4bhpgjO1Uj_ckB7gC1ZQ0LMII1PiYItUOyankDsLg8vnwVOYCnizehuEUl-1YpjeaT6ACxvxi=w1920-h950-rw', NOW(), NOW()),
+    ('Sekolah Bisnis dan Manajemen', 'SBM', 'https://lh5.googleusercontent.com/RAR7RXFS9a3Q32XrXEe2TBeoiq5YGzb03fC2HiT0T1L_fYl3-Q_Ug0opCIbXI3wDb2U-gc4i5ODKtB3RJjn9=w1920-h950-rw', NOW(), NOW()),
+    ('Sekolah Farmasi', 'SF', 'https://lh5.googleusercontent.com/W0C5qqTtjSVo-NUqVy01NSyrgGAZwJdTkZhd-_bU4OAmVORSR03v9Ga88SLKnyymSIM4zawR06UcTrpJnNYs=w1920-h950-rw', NOW(), NOW()),
+    ('Sekolah Ilmu Teknologi Hayati – Rekayasa', 'SITH-R', 'https://lh6.googleusercontent.com/sGGAXRZcmmJtKg2uU5iskLkswS5VTCtJRcm29Hk6G3LfJPlUhI9OBXXycdzqNbo0w2oa-4It2Bzy77ubrnoQ=w1920-h950-rw', NOW(), NOW()),
+    ('Sekolah Ilmu Teknologi Hayati – Sains', 'SITH-S', 'https://lh4.googleusercontent.com/n3UYGF8BLYIFAybxu_jltHzdBWMBRrPRUpRGz9Sru7x5FhXEq_4Z9CLZaszP_yQChgarlqP_ogHk7wUe0hE7=w1920-h950-rw', NOW(), NOW()),
+    ('Sekolah Teknik Elektro dan Informatika', 'STEI', 'https://lh5.googleusercontent.com/PePVIHqthQmT_ijZrI4KorAH49iYa8NIt5rsSEmFTR08RC93dDXVhtkv-_1qRi8q6pD5eoxXPFvbkH0ComCb=w1920-h950-rw', NOW(), NOW());

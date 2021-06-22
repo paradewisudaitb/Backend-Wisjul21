@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { getDataToShow, getDataWisudawanToShow }  from '../models/wisudawan';
+import { getDataOfHimpunan, getDataOfNonHimpunan, getDataWisudawanToShow }  from '../models/wisudawan';
+import HttpException from './middleware/HttpException';
 
 const router = Router();
 
@@ -20,8 +21,13 @@ export default (app: Router): void => {
     const nim = req.query.nim?.toString();
     if (namaHimpunan) {
       try {
-        const a = await getDataToShow(namaHimpunan);
-        res.json(a);
+        if (namaHimpunan == 'nonhim') {
+          const a = await getDataOfNonHimpunan(namaHimpunan);
+          res.json(a);
+        } else {
+          const a = await getDataOfHimpunan(namaHimpunan);
+          res.json(a);
+        }
       } catch(err) {
         next(err);
       }
@@ -33,7 +39,7 @@ export default (app: Router): void => {
         next(err);
       }
     } else {
-      res.status(400).send('Tidak bisa melakukan GET request tanpa namaHimpunan atau nim');
+      next(new HttpException(400, 'Tidak bisa melakukan GET request tanpa namaHimpunan atau nim'));
     }
   });
 };
