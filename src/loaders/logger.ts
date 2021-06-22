@@ -14,7 +14,7 @@ let logger = winston.createLogger({
       dirname: 'logs',
       filename: 'errors.log',
       level: 'error',
-      maxsize: 5242880,
+      // maxsize: 5242880,
       format: format.combine(
         format.json(),
         format.colorize({ all: false })
@@ -24,7 +24,7 @@ let logger = winston.createLogger({
     new winston.transports.File({
       dirname: 'logs',
       filename: 'combined.log',
-      maxsize: 5242880,
+      // maxsize: 5242880,
       format: format.combine(
         format.json(),
         format.colorize({ all: false })
@@ -42,10 +42,9 @@ let logger = winston.createLogger({
   exitOnError: false, // do not exit on handled exceptions
 });
 
-export class LoggerStream {
+export const loggerStream = {
   write (msg: string) {
     logger.info(msg.substring(0, msg.lastIndexOf('\n')));
   }
-}
-
+};
 export default logger;

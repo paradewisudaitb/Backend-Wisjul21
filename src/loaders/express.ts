@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import routes from '../routes';
-import { LoggerStream } from './logger';
+import { loggerStream } from './logger';
 
 export default (app: express.Application) => {
   // katanya bagus kalo pake reverse proxy
@@ -12,10 +12,10 @@ export default (app: express.Application) => {
     app.use(cors({
       origin: /\.?wisjulitb.com$/,
     }));
-    app.use(morgan('combined', { stream: new LoggerStream() }));
+    app.use(morgan('combined', { stream: loggerStream }));
   } else {
     app.use(cors());
-    app.use(morgan('dev', { stream: new LoggerStream() }));
+    app.use(morgan('dev', { stream: loggerStream }));
   }
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
