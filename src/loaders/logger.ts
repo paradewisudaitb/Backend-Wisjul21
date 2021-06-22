@@ -1,7 +1,7 @@
 import winston, { format } from 'winston';
 import { StreamLikeType } from 'morgan-body';
 
-let logger = winston.createLogger({
+const logger = winston.createLogger({
   level: 'info',
   format: format.combine(
     format.timestamp({

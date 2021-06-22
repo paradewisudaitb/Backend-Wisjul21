@@ -41,7 +41,7 @@ export default (app: Router): void => {
         next(err);
       }
     } else {
-      next(new HttpException(400, 'Tidak ada file yang diupload.'))
+      next(new HttpException(400, 'Tidak ada file yang diupload.'));
     }
   });
 };

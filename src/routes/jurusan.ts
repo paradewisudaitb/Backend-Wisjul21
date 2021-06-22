@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import logger from '../loaders/logger';
 import { getJurusan } from '../services/jurusan';
 import HttpException from './middleware/HttpException';
 

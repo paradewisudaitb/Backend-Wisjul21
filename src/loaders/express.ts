@@ -5,7 +5,7 @@ import logger, { loggerStream } from './logger';
 import HttpException from '../routes/middleware/HttpException';
 import routes from '../routes';
 
-export default (app: express.Application) => {
+export default (app: express.Application): void => {
   // katanya bagus kalo pake reverse proxy
   app.enable('trust proxy');
 
@@ -38,5 +38,5 @@ export default (app: express.Application) => {
       status: err.status,
     });
     logger.error(err.stack);
-  })
-}
+  });
+};

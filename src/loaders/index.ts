@@ -4,7 +4,7 @@ import expressLoader from './express';
 import logger from './logger';
 import { Application } from 'express';
 
-export default async (app: Application) => {
+export default async (app: Application): Promise<void> => {
   expressLoader(app);
 
   await db.sequelize.sync();
@@ -16,4 +16,4 @@ export default async (app: Application) => {
     =============================
     `);
   });
-}
+};
