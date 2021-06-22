@@ -187,3 +187,41 @@ namaPengirim boleh dikosongin, kalau kosog otomatis jadi 'Anonymous'
 ```
     - Array bisa >= 0 elemen
     - nama pengirim ga mungkin kosong; either yang "beneran" atau "anonymous"
+
+## Himpunan-related
+### Get all
+- Endpoint: `/himpunan/getAll`
+- Method: GET
+- Request query: none
+- Response: Array of JSON, code 200
+```ts
+[
+  {
+    idHimpunan: number,
+    linkFoto: string,
+    namaHimpunan: string,
+    singkatanHimpunan: string,
+    createdAt: Date,
+    updatedAt: Date
+  },
+]
+```
+    - Array bisa >= 0 elemen
+    - nama pengirim ga mungkin kosong; either yang "beneran" atau "anonymous"
+### Himpunan sebuah fakultas
+- Endpoint: `/himpunan/get?fakultas=...` (bagian `...` diisi singkatan fakultas)
+- Method: GET
+- Request query: `fakultas` (diisi singkatan fakultas: sith, stei, dll)
+- Response: Array of JSON, code 200
+```ts
+[
+  {
+    namaHimpunan: string,
+    singkatanHimpunan: string
+    linkFoto: string,
+    jurusan: string[],
+  },
+]
+```
+    - Array bisa >= 0 elemen
+    - Singkatan fakultas boleh kapital boleh tidak
