@@ -1,6 +1,7 @@
 .env
 .vscode
 **/*/.vscode
+/logs
 
 # dependencies
 /node_modules

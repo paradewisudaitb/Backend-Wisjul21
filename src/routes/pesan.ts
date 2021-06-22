@@ -18,7 +18,6 @@ export default (app: Router): void => {
         const pesan = await getPesanForNIM(nim);
         res.json(pesan);
       } catch (err) {
-        console.error(err);
         next(err);
       }
     }
@@ -42,7 +41,6 @@ pesan: ${req.body.pesan}
         pengirim: req.body.pengirim || 'Anonymous'
       });
     } catch (err) {
-      console.error(err);
       next(err);
     }
   });
