@@ -1,0 +1,70 @@
+{
+  "FITB": [
+    "Himpunan Mahasiswa Meteorologi",
+    "Himpunan Mahasiswa Oseanografi",
+    "Himpunan Mahasiswa Teknik Geologi",
+    "Ikatan Mahasiswa Geodesi"
+  ],
+  "FMIPA": [
+    "Himpunan Mahasiswa Fisika",
+    "Himpunan Mahasiswa Astronomi",
+    "Himpunan Mahasiswa Matematika",
+    "Himpunan Mahasiswa Kimia"
+  ],
+  "FSRD": [
+    "Ikatan Mahasiswa Desain Interior",
+    "Keluarga Mahasiswa Desain Produk",
+    "Ikatan Pemuda Pemudi Desain Grafis",
+    "Himpunan Mahasiswa Kriya",
+    "Visual Art Student Aggregate"
+  ],
+  "FTI": [
+    "Himpunan Mahasiswa Teknik Kimia",
+    "Himpunan Mahasiswa Fisika Teknik",
+    "Himpunan Mahasiswa Teknik Pangan",
+    "Himpunan Mahasiswa Teknik Bioenergi dan Kemurgi",
+    "Keluarga Mahasiswa Teknik Industri"
+  ],
+  "FTMD": [
+    "Himpunan Mahasiswa Mesin",
+    "Keluarga Mahasiswa Teknik Penerbangan",
+    "Himpunan Mahasiswa Teknik Material"
+  ],
+  "FTSL": [
+    "Himpunan Mahasiswa Sumber Daya Air",
+    "Himpunan Mahasiswa Sipil",
+    "Himpunan Mahasiswa Teknik Lingkungan",
+    "Keluarga Mahasiswa Infrastruktur Lingkungan",
+    "Keluarga Mahasiswa Teknik Kelautan"
+  ],
+  "FTTM": [
+    "Himpunan Mahasiswa Teknik Geofisika",
+    "Himpunan Mahasiswa Tambang",
+    "Himpunan Mahasiswa Teknik Perminyakan",
+    "Ikatan Mahasiswa Teknik Metalurgi"
+  ],
+  "SAPPK": [
+    "Himpunan Mahasiswa Perencanaan Wilayah dan Kota Pangripta Loka",
+    "Ikatan Mahasiswa Arsitektur Gunadharma"
+  ],
+  "SBM": [
+    "Keluarga Mahasiswa Manajemen",
+    "Ikatan Mahasiswa Kewirausahaan"
+  ],
+  "SF": [
+    "Himpunan Mahasiswa Farmasi"
+  ],
+  "SITH": [
+    "Himpunan Mahasiswa Rekayasa Pertanian",
+    "Himpunan Mahasiswa Rekayasa Kehutanan",
+    "Himpunan Mahasiswa Rekayasa Hayati",
+    "Himpunan Mahasiswa Teknologi Pascapanen",
+    "Himpunan Mahasiswa Mikrobiologi",
+    "Himpunan Mahasiswa Biologi"
+  ],
+  "STEI": [
+    "Ikatan Mahasiswa Telekomunikasi",
+    "Himpunan Mahasiswa Elektroteknik",
+    "Himpunan Mahasiswa Informatika"
+  ]
+}
