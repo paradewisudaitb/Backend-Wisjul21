@@ -1,8 +1,9 @@
 import cors from 'cors';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import morganBody from 'morgan-body';
+import logger, { loggerStream } from './logger';
+import HttpException from '../routes/middleware/HttpException';
 import routes from '../routes';
-import { loggerStream } from './logger';
 
 export default (app: express.Application) => {
   // katanya bagus kalo pake reverse proxy
@@ -12,10 +13,8 @@ export default (app: express.Application) => {
     app.use(cors({
       origin: /\.?wisjulitb.com$/,
     }));
-    // app.use(morgan('combined', { stream: loggerStream }));
   } else {
     app.use(cors());
-    // app.use(morgan('dev', { stream: loggerStream }));
   }
   morganBody(app, {
     logIP: true,
@@ -31,4 +30,13 @@ export default (app: express.Application) => {
   // health check
   app.get('/status', (_, res) => res.status(200).end());
   app.head('/status', (_, res) => res.status(200).end());
+
+  // error handling
+  app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
+    res.status(err.status).json({
+      message: err.message,
+      status: err.status,
+    });
+    logger.error(err.stack);
+  })
 }

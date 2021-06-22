@@ -26,7 +26,6 @@ export default (app: Router): void => {
         nim: w.nim,
       });
     } catch (error) {
-      console.error(error);
       next(error);
     }
   });
@@ -39,7 +38,6 @@ export default (app: Router): void => {
         uploader(req.file, path);
         res.status(201).send({ filename: fname });
       } catch (err) {
-        console.log(err);
         next(err);
       }
     } else {
