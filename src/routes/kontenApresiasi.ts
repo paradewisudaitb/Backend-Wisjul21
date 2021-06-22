@@ -15,13 +15,17 @@ export default (app: Router): void => {
         const idHimpunan = 7; //untuk testing pake idHimpunan Himatika
         const fname = `[${Date.now()}]${req.file.originalname}`;
         const path = `https://wisjul21.sgp1.cdn.digitaloceanspaces.com/kontenApresiasi/${fname}`;
-        try {
-            uploader(req.file, path);
-            createKarya( idHimpunan, path, path, tipeApresiasi); //masih ada parameter linkThumbnail
-            res.status(201).send({ filename: fname });
-        } catch(err) {
-            console.log(err);
-            next(err);
+        if (!namaHimpunan || !tipeApresiasi || !idHImpunan) {
+            try {
+                uploader(req.file, path);
+                createKarya( idHimpunan, path, path, tipeApresiasi); //masih ada parameter linkThumbnail
+                res.status(201).send({ filename: fname });
+            } catch (err) {
+                console.log(err);
+                next(err);
+            }
+        } else {
+            throw new HttpException(400, 'Tidak bisa melakukan upload konten apresiasi tanpa nama himpunan, tipe apresiasi, dan id himpunan.');
         }
     });
 
