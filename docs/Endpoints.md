@@ -86,7 +86,7 @@ lengkap himpunan)
       namaJurusan: string,
       namaLengkap: string,
       pasfoto: string,
-      lembagaNonHMJ: array of string
+      lembagaNonHMJ: string[]
   },
 ]
 ```
@@ -113,10 +113,10 @@ lengkap himpunan)
       judulTA: string,
       funFact: string,
       pasfoto: string
-      karya: array of string,
-      kontribusi: array of string,
-      lembaga: array of string,
-      prestasi: array of string
+      karya: string[],
+      kontribusi: string[],
+      lembaga: string[],
+      prestasi: string[]
   }
 ]
 ```
@@ -131,7 +131,7 @@ lengkap himpunan)
 - Response: JSON, code 200
 ```ts
 {
-  jurusan: array of string
+  jurusan: string[]
 }
 ```
 
@@ -143,7 +143,7 @@ lengkap himpunan)
 - Response: JSON, code 200
 ```ts
 {
-  jurusan: array of string
+  jurusan: string[]
 }
 ```
 
@@ -181,7 +181,9 @@ namaPengirim boleh dikosongin, kalau kosog otomatis jadi 'Anonymous'
     idPesan: string,
     nim: string,
     namaPengirim: string,
-    pesan: string
+    pesan: string,
+    createdAt: Date,
+    updatedAt: Date
   },
 ]
 ```
