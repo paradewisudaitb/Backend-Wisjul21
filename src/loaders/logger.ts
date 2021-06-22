@@ -1,4 +1,5 @@
 import winston, { format } from 'winston';
+import { StreamLikeType } from 'morgan-body';
 
 let logger = winston.createLogger({
   level: 'info',
@@ -42,9 +43,10 @@ let logger = winston.createLogger({
   exitOnError: false, // do not exit on handled exceptions
 });
 
-export const loggerStream = {
-  write (msg: string) {
+export const loggerStream: StreamLikeType = {
+  write: (msg: string): boolean => {
     logger.info(msg.substring(0, msg.lastIndexOf('\n')));
+    return true;
   }
 };
 export default logger;
