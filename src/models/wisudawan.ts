@@ -42,6 +42,7 @@ class Wisudawan extends Model<WisudawanAttributes>
   public kotaAsal!: string;
   public tanggalLahir!: Date;//gatau date di ts apa
   public angkatan!: number;
+  public nonhim!: boolean;
 
   // data pembuatan dan update
   public readonly createdAt!: Date;
@@ -145,6 +146,10 @@ Wisudawan.init(
       type: DataTypes.INTEGER, // 16, 17, 18, ...
       allowNull: false
     },
+    nonhim: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   },
   {
     tableName: 'wisudawan',
@@ -189,73 +194,6 @@ Wisudawan.hasOne  (Jurusan, {
 });
 
 export const create = async (
-  nim: string, 
-  idJurusan: number, 
-  namaLengkap: string, 
-  namaPanggilan: string, 
-  pasfoto: string, 
-  judulTA: string, 
-  funFact: string, 
-  tipsSukses: string, 
-  email: string, 
-  kotaAsal: string, 
-  tanggalLahir: Date, 
-  angkatan: number,
-  karya?: string[],
-  kontribusi?: string[],
-  lembaga?: string[],
-  prestasi?: string[]
-): Promise<Wisudawan> => {
-  const wisudawan = await Wisudawan.create({
-    nim, 
-    idJurusan, 
-    namaLengkap,
-    namaPanggilan, 
-    pasfoto, 
-    judulTA, 
-    funFact, 
-    tipsSukses, 
-    email, 
-    kotaAsal, 
-    tanggalLahir, 
-    angkatan,
-  });
-
-  if (!lembaga) {// ga ada karya
-    wisudawan.addLembagas(await lembagaCreate(nim, '-'));
-  } else {
-    for (const lem of lembaga) {
-      wisudawan.addLembagas(await lembagaCreate(nim, lem));
-    }
-  }
-
-  if (!kontribusi) {// ga ada karya
-    wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
-  } else {
-    for (const lem of kontribusi) {
-      wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
-    }
-  }
-
-  if (!karya) {// ga ada karya
-    wisudawan.addKaryas(await karyaCreate(nim, '-'));
-  } else {
-    for (const lem of karya) {
-      wisudawan.addKaryas(await karyaCreate(nim, lem));
-    }
-  }
-
-  if (!prestasi) { // ga ada prestasi
-    wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
-  } else {
-    for (const pres of prestasi) {
-      wisudawan.addPrestasis(await prestasiCreate(nim, pres));
-    }
-  }
-  return wisudawan;
-};
-
-export const destroy = async (
   nim: string,
   idJurusan: number,
   namaLengkap: string,
@@ -267,24 +205,65 @@ export const destroy = async (
   email: string,
   kotaAsal: string,
   tanggalLahir: Date,
-  angkatan: number
-): Promise<void> =>{
-  await Wisudawan.destroy({
-    where: {
-      nim,
-      idJurusan,
-      namaLengkap,
-      namaPanggilan,
-      pasfoto,
-      judulTA,
-      funFact,
-      tipsSukses,
-      email,
-      kotaAsal,
-      tanggalLahir,
-      angkatan
-    }
+  angkatan: number,
+  nonhim: boolean,
+  karya?: string[],
+  kontribusi?: string[],
+  lembaga?: string[],
+  prestasi?: string[]
+): Promise<Wisudawan> => {
+  const wisudawan = await Wisudawan.create({
+    nim,
+    idJurusan,
+    namaLengkap,
+    namaPanggilan,
+    pasfoto,
+    judulTA,
+    funFact,
+    tipsSukses,
+    email,
+    kotaAsal,
+    tanggalLahir,
+    angkatan,
+    nonhim
   });
+
+  if (!lembaga) {// ga ada karya
+    wisudawan.addLembagas(await lembagaCreate(nim, '-'));
+  } else {
+    for (const lem of lembaga) {
+      if (lem == '') continue;
+      wisudawan.addLembagas(await lembagaCreate(nim, lem));
+    }
+  }
+
+  if (!kontribusi) {// ga ada karya
+    wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
+  } else {
+    for (const lem of kontribusi) {
+      if (lem == '') continue;
+      wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
+    }
+  }
+
+  if (!karya) {// ga ada karya
+    wisudawan.addKaryas(await karyaCreate(nim, '-'));
+  } else {
+    for (const lem of karya) {
+      if (lem == '') continue;
+      wisudawan.addKaryas(await karyaCreate(nim, lem));
+    }
+  }
+
+  if (!prestasi) { // ga ada prestasi
+    wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
+  } else {
+    for (const pres of prestasi) {
+      if (pres == '') continue;
+      wisudawan.addPrestasis(await prestasiCreate(nim, pres));
+    }
+  }
+  return wisudawan;
 };
 
 export const selectAll = async (): Promise<Wisudawan[]> => {
@@ -299,23 +278,43 @@ export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => 
   });
 };
 
-export const getDataToShow = async (namaHimpunan: string): Promise<any> => {
+export const getDataOfHimpunan = async (namaHimpunan: string): Promise<any> => {
   try {
     const res = await conn.query(`
   SELECT nim,
       jurusan."namaJurusan",
       wisudawan."namaLengkap",
       wisudawan."judulTA",
-      wisudawan.pasfoto,
-      array_agg(DISTINCT lembaga.lembaga) as "lembagaNonHMJ"
-    FROM (((((wisudawan
+      wisudawan.pasfoto
+    FROM ((wisudawan
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
-      JOIN karya USING (nim))
-      JOIN kontribusi USING (nim))
-      JOIN lembaga USING (nim))
-      WHERE himpunan."namaHimpunan" = ?
-    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap",   wisudawan."judulTA", wisudawan.pasfoto
+    WHERE himpunan."namaHimpunan" = ? AND wisudawan.nonhim = false
+    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
+    ORDER BY nim;
+    `, {
+      replacements: [namaHimpunan],
+      type: QueryTypes.SELECT,
+    });
+    return res;
+  } catch (err) {
+    throw new HttpException(500, err);
+  }
+};
+
+export const getDataOfNonHimpunan = async (namaHimpunan: string): Promise<any> => {
+  try {
+    const res = await conn.query(`
+  SELECT nim,
+      jurusan."namaJurusan",
+      wisudawan."namaLengkap",
+      wisudawan."judulTA",
+      wisudawan.pasfoto
+    FROM ((wisudawan
+      JOIN jurusan USING ("idJurusan"))
+      JOIN himpunan USING ("idHimpunan"))
+    WHERE wisudawan.nonhim = true
+    GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `, {
       replacements: [namaHimpunan],
@@ -348,14 +347,15 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
          array_agg(DISTINCT kontribusi.kontribusi) AS "kontribusi",
          array_agg(DISTINCT lembaga.lembaga) AS "lembaga",
          array_agg(DISTINCT prestasi.prestasi) AS "prestasi"
-        FROM (((((wisudawan
+        FROM ((((((wisudawan
           JOIN jurusan USING ("idJurusan"))
-          JOIN himpunan USING ("idHimpunan"))
+          JOIN himpunan ON ((wisudawan.nonhim = himpunan.nonhim AND wisudawan.nonhim = true) OR (jurusan."idHimpunan" = himpunan."idHimpunan" AND wisudawan.nonhim = false)))
           JOIN karya USING (nim))
+          JOIN prestasi USING(nim))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
          WHERE nim = ?
-       GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt"
+       GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt", wisudawan.nonhim
        ORDER BY wisudawan."createdAt";
     `, {
       replacements: [nim],

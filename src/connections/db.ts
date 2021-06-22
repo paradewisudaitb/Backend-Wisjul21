@@ -10,6 +10,7 @@ const conn = new Sequelize(
     port: config.db.PORT,
     dialect: config.db.DIALECT,
     pool: config.db.POOL,
+    logging: false,
   }
 );
 

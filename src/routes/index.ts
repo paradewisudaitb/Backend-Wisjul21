@@ -4,6 +4,8 @@ import jurusan from './jurusan';
 import pesan from './pesan';
 import wisudawan from './dataWisudawan';
 import kontenApresiasi from './kontenApresiasi';
+import himpunan from './himpunan';
+
 export default (): Router => {
   const app = Router();
 
@@ -12,5 +14,7 @@ export default (): Router => {
   pesan(app);
   wisudawan(app);
   kontenApresiasi(app);
+  himpunan(app);
+
   return app;
 };

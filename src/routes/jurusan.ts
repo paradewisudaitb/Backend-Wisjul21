@@ -15,12 +15,10 @@ export default (app: Router): void => {
   router.get('/getAll', async (req, res, next) => {
     try {
       const allJurusan = await getJurusan();
-      console.log(allJurusan);
       res.json({
         jurusan: allJurusan,
       });
     } catch (e) {
-      console.error(e);
       next(e);
     }
   });
@@ -45,7 +43,6 @@ export default (app: Router): void => {
           jurusan: jurusan,
         });
       } catch (e) {
-        console.error(e);
         next(e);
       }
     }
