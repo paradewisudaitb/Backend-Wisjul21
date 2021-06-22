@@ -186,3 +186,56 @@ namaPengirim boleh dikosongin, kalau kosog otomatis jadi 'Anonymous'
 ```
     - Array bisa >= 0 elemen
     - nama pengirim ga mungkin kosong; either yang "beneran" atau "anonymous"
+
+## kontenApresiasi-Related
+### Upload Konten
+- Endpoint: `/kontenApresiasi/uploadKonten`
+- Method: POST
+- Request body: Mixed(?)
+- Contoh penggunaan: 
+```ts
+const fd = new FormData();
+fd.append('kontenApresiasi', data.kontenApresiasi[0]);
+await fetch(`${API_URL}/kontenApresiasi/uploadKonten`, {
+  method: 'POST',
+  headers: {
+    'X-Content-Type-Options': 'nosniff',
+  },
+  body: fd,
+})
+  .then(res => res.json())
+  .then(res => {
+    window.alert(`${res.filename} has been uploaded.`);
+  })
+  .catch(err => {
+    succ = false;
+    console.error(err);
+    window.alert(errMsg);
+  });
+```
+- Response: JSON, code: 201
+```ts
+{
+  filename: string
+}
+```
+### Dapetin Semua Konten Apresiasi Suatu Himpunan
+- Endpoint: `/kontenApresiasi/get?namaHimpunan=...` (bagian `...` diisi sama nama lengkap himpunan)
+> nama himpunan bisa diliat di [sini](./src/sql/himpunan.sql)
+- Method: GET
+- Request Query: `namaHimpunan` (diisi nama lengkap himpunan)
+- Response: Array of JSON, code: 200
+```ts
+[
+  {
+      idApresiasi: number,
+      idHimpunan: number 
+      linkKonten: string,
+      linkThumbnail: string,
+      tipeKonten: tipeApresiasi,
+      createdAt: string,
+      updatedAt: string
+  },
+]
+```
+    - ada `,` artinya bukan cmn 1 elemen
