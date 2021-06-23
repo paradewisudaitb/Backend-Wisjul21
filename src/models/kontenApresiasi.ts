@@ -61,7 +61,7 @@ kontenApresiasi.init(
 export const create = async (idHimpunan: number, linkKonten: string, linkThumbnail: string, tipeKonten: tipeApresiasi): Promise<kontenApresiasi> => {
   return await kontenApresiasi.create({ idHimpunan, linkKonten, linkThumbnail, tipeKonten });
 };
-
+ 
 export const destroy = async (idHimpunan: number, linkKonten: string, linkThumbnail: string, tipeKonten: tipeApresiasi): Promise<void> => {
   await kontenApresiasi.destroy({
     where: {
