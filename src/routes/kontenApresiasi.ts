@@ -6,7 +6,7 @@ import {create as createKarya, getApresiasiByNamaHimpunan} from '../models/konte
 const router = Router();
 
 export default (app: Router): void => {
-    app.use('/kontenApresiasi', router);
+  app.use('/kontenApresiasi', router);
 
     router.post('/uploadKonten', upload.single('kontenApresiasi'), (req, res, next) => {
         const namaHimpunan = req.body.namaHimpunan;
