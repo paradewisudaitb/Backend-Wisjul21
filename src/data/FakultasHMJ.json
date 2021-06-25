@@ -3,56 +3,66 @@
     "Himpunan Mahasiswa Meteorologi",
     "Himpunan Mahasiswa Oseanografi",
     "Himpunan Mahasiswa Teknik Geologi",
-    "Ikatan Mahasiswa Geodesi"
+    "Ikatan Mahasiswa Geodesi",
+    "Fakultas Ilmu dan Teknologi Kebumian"
   ],
   "FMIPA": [
     "Himpunan Mahasiswa Fisika",
     "Himpunan Mahasiswa Astronomi",
     "Himpunan Mahasiswa Matematika",
-    "Himpunan Mahasiswa Kimia"
+    "Himpunan Mahasiswa Kimia",
+    "Fakultas Matematika dan Ilmu Pengetahuan Alam"
   ],
   "FSRD": [
     "Ikatan Mahasiswa Desain Interior",
     "Keluarga Mahasiswa Desain Produk",
     "Ikatan Pemuda Pemudi Desain Grafis",
     "Himpunan Mahasiswa Kriya",
-    "Visual Art Student Aggregate"
+    "Visual Art Student Aggregate",
+    "Fakultas Seni Rupa dan Desain"
   ],
   "FTI": [
     "Himpunan Mahasiswa Teknik Kimia",
     "Himpunan Mahasiswa Fisika Teknik",
     "Himpunan Mahasiswa Teknik Pangan",
     "Himpunan Mahasiswa Teknik Bioenergi dan Kemurgi",
-    "Keluarga Mahasiswa Teknik Industri"
+    "Keluarga Mahasiswa Teknik Industri",
+    "Fakultas Teknologi Industri"
   ],
   "FTMD": [
     "Himpunan Mahasiswa Mesin",
     "Keluarga Mahasiswa Teknik Penerbangan",
-    "Himpunan Mahasiswa Teknik Material"
+    "Himpunan Mahasiswa Teknik Material",
+    "Fakultas Teknik Mesin dan Dirgantara"
   ],
   "FTSL": [
     "Himpunan Mahasiswa Sumber Daya Air",
     "Himpunan Mahasiswa Sipil",
     "Himpunan Mahasiswa Teknik Lingkungan",
     "Keluarga Mahasiswa Infrastruktur Lingkungan",
-    "Keluarga Mahasiswa Teknik Kelautan"
+    "Keluarga Mahasiswa Teknik Kelautan",
+    "Fakultas Teknik Sipil dan Lingkungan"
   ],
   "FTTM": [
     "Himpunan Mahasiswa Teknik Geofisika",
     "Himpunan Mahasiswa Tambang",
     "Himpunan Mahasiswa Teknik Perminyakan",
-    "Ikatan Mahasiswa Teknik Metalurgi"
+    "Ikatan Mahasiswa Teknik Metalurgi",
+    "Fakultas Teknik Pertambangan dan Perminyakan"
   ],
   "SAPPK": [
     "Himpunan Mahasiswa Perencanaan Wilayah dan Kota Pangripta Loka",
-    "Ikatan Mahasiswa Arsitektur Gunadharma"
+    "Ikatan Mahasiswa Arsitektur Gunadharma",
+    "Sekolah Arsitektur, Perencanaan dan Pengembangan Kebijakan"
   ],
   "SBM": [
     "Keluarga Mahasiswa Manajemen",
-    "Ikatan Mahasiswa Kewirausahaan"
+    "Ikatan Mahasiswa Kewirausahaan",
+    "Sekolah Bisnis dan Manajemen"
   ],
   "SF": [
-    "Himpunan Mahasiswa Farmasi"
+    "Himpunan Mahasiswa Farmasi",
+    "Sekolah Farmasi"
   ],
   "SITH": [
     "Himpunan Mahasiswa Rekayasa Pertanian",
@@ -60,11 +70,14 @@
     "Himpunan Mahasiswa Rekayasa Hayati",
     "Himpunan Mahasiswa Teknologi Pascapanen",
     "Himpunan Mahasiswa Mikrobiologi",
-    "Himpunan Mahasiswa Biologi"
+    "Himpunan Mahasiswa Biologi",
+    "Sekolah Ilmu Teknologi Hayati – Sains",
+    "Sekolah Ilmu Teknologi Hayati – Rekayasa"
   ],
   "STEI": [
     "Ikatan Mahasiswa Telekomunikasi",
     "Himpunan Mahasiswa Elektroteknik",
-    "Himpunan Mahasiswa Informatika"
+    "Himpunan Mahasiswa Informatika",
+    "Sekolah Teknik Elektro dan Informatika"
   ]
 }
