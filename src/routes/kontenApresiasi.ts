@@ -13,17 +13,29 @@ export default (app: Router): void => {
     const namaHimpunan = req.body.namaHimpunan;
     const tipeApresiasi = req.body.tipeApresiasi;
     const idHimpunan = (await getHimpunanFromNamaHimpunan(namaHimpunan)).idHimpunan;
-    if (namaHimpunan && tipeApresiasi && req.file) {
-      const fname = `[${Date.now()}]${req.file.originalname}`;
-      const path = `kontenApresiasi/${fname}`;
-      const fullPath = `https://wisjul21.sgp1.cdn.digitaloceanspaces.com/${path}`;
 
-      try {
-        uploader(req.file, path);
-        createKarya(idHimpunan, fullPath, fullPath, tipeApresiasi);
-        res.status(201).send({ filename: fname });
-      } catch (err) {
-        next(err);
+    if (namaHimpunan && tipeApresiasi && (req.file || req.body.kontenApresiasi)) {
+      if (req.file && tipeApresiasi != 'website') {
+        const fname = `[${Date.now()}]${req.file.originalname}`;
+        const path = `kontenApresiasi/${fname}`;
+        const fullPath = `https://wisjul21.sgp1.cdn.digitaloceanspaces.com/${path}`;
+
+        try {
+          uploader(req.file, path);
+          createKarya(idHimpunan, fullPath, fullPath, tipeApresiasi);
+          res.status(201).send({ konten: fname });
+        } catch (err) {
+          next(err);
+        }
+      } else if (req.body.kontenApresiasi && tipeApresiasi == 'website') {
+        try {
+          createKarya(idHimpunan, req.body.kontenApresiasi, req.body.kontenApresiasi, tipeApresiasi);
+          res.status(201).send({ konten: req.body.kontenApresiasi });
+        } catch (err) {
+          next(err);
+        }
+      } else {
+        throw new HttpException(400, 'Konten apresiasi tidak bisa kosong');
       }
     } else {
       throw new HttpException(400, 'Tidak bisa melakukan upload konten apresiasi tanpa nama himpunan, tipe apresiasi, dan id himpunan');
