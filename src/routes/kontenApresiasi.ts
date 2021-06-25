@@ -2,22 +2,25 @@ import { Router } from 'express';
 import { uploader, multerUpload as upload } from './middleware/uploader';
 import HttpException from './middleware/HttpException';
 import {create as createKarya, getApresiasiByNamaHimpunan} from '../models/kontenApresiasi';
+import { getHimpunanFromNamaHimpunan } from '../models/himpunan';
 
 const router = Router();
 
 export default (app: Router): void => {
   app.use('/kontenApresiasi', router);
 
-  router.post('/uploadKonten', upload.single('kontenApresiasi'), (req, res, next) => {
+  router.post('/upload', upload.single('kontenApresiasi'), async (req, res, next) => {
     const namaHimpunan = req.body.namaHimpunan;
     const tipeApresiasi = req.body.tipeApresiasi;
-    const idHimpunan = 7; //untuk testing pake idHimpunan Himatika
-    const fname = `[${Date.now()}]${req.file.originalname}`;
-    const path = `kontenApresiasi/${fname}`;
+    const idHimpunan = (await getHimpunanFromNamaHimpunan(namaHimpunan)).idHimpunan;
     if (namaHimpunan && tipeApresiasi && req.file) {
+      const fname = `[${Date.now()}]${req.file.originalname}`;
+      const path = `kontenApresiasi/${fname}`;
+      const fullPath = `https://wisjul21.sgp1.cdn.digitaloceanspaces.com/${path}`;
+
       try {
         uploader(req.file, path);
-        createKarya( idHimpunan, path, path, tipeApresiasi); //masih ada parameter linkThumbnail
+        createKarya(idHimpunan, fullPath, fullPath, tipeApresiasi);
         res.status(201).send({ filename: fname });
       } catch (err) {
         next(err);

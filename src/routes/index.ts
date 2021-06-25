@@ -15,6 +15,6 @@ export default (): Router => {
   wisudawan(app);
   kontenApresiasi(app);
   himpunan(app);
-  
+
   return app;
 };
