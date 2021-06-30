@@ -40,6 +40,7 @@ export default (app: Router): void => {
         }
         res.json(hasil);
       } catch (err) {
+        err.status = 500;
         next(err);
       }
     }
