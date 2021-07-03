@@ -2,10 +2,15 @@ import {
   Model,
   DataTypes,
   Optional,
+  where,
+  fn,
+  col
 } from 'sequelize';
 import conn from '../connections/db';
 import Himpunan from './himpunan';
 import { kontenApresiasiAttributes, tipeApresiasi } from '../interfaces/IKontenApresiasi';
+import HttpException from '../routes/middleware/HttpException';
+import logger from '../loaders/logger';
 
 /**
  * Attribut optional di `User.build` dan `User.create`
@@ -85,17 +90,25 @@ export const getApresiasiByidHimpunan = async (idHimpunan: number): Promise<kont
   });
 };
 
-export const getApresiasiByNamaHimpunan = async (namaHimpunan: string): Promise<kontenApresiasi[]> => {
-  const res = await Himpunan.findAll({
-    where: {
-      namaHimpunan
-    },
-    include: [
-      kontenApresiasi
-    ],
-  });
-  // Ini belum yakin sih res[0]nya
-  return res[0].getKontenApresiasis();
+export const getApresiasiByNamaHimpunan = async (namaHimpunanVanilla: string): Promise<kontenApresiasi[]> => {
+  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ').toLowerCase();
+  try {
+    const res = await Himpunan.findAll({
+      where: {
+        namaHimpunan: where(
+          fn('LOWER', col('namaHimpunan')),
+          namaHimpunan
+        ),
+      },
+      include: [
+        kontenApresiasi
+      ],
+    });
+    // Ini belum yakin sih res[0]nya
+    return res[0].getKontenApresiasis();
+  } catch (err) {
+    throw new HttpException(500, `Gagal mendapatkan konten apresiasi himpunan ${namaHimpunanVanilla}`);
+  }
 };
 
 export default kontenApresiasi;

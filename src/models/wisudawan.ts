@@ -281,7 +281,7 @@ export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => 
 };
 
 export const getDataOfHimpunan = async (namaHimpunanVanilla: string): Promise<any> => {
-  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ');
+  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ').toLowerCase();
   try {
     const res = await conn.query(`
   SELECT nim,
