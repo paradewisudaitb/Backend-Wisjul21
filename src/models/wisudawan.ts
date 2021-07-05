@@ -307,7 +307,7 @@ export const getDataOfHimpunan = async (namaHimpunanVanilla: string): Promise<an
   }
 };
 
-export const getDataOfNonHimpunan = async (namaHimpunan: string): Promise<any> => {
+export const getDataOfNonHimpunan = async (): Promise<any> => {
   try {
     const res = await conn.query(`
   SELECT nim,
@@ -324,7 +324,6 @@ export const getDataOfNonHimpunan = async (namaHimpunan: string): Promise<any> =
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `, {
-      replacements: [namaHimpunan],
       type: QueryTypes.SELECT,
     });
     return res;

@@ -22,7 +22,7 @@ export default (app: Router): void => {
     if (namaHimpunan) {
       try {
         if (namaHimpunan.toLowerCase() == 'non-himpunan') {
-          const a = await getDataOfNonHimpunan(namaHimpunan);
+          const a = await getDataOfNonHimpunan();
           res.json(a);
         } else {
           const a = await getDataOfHimpunan(namaHimpunan);
