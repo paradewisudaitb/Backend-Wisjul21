@@ -3,6 +3,7 @@ import { uploader, multerUpload as upload } from './middleware/uploader';
 import HttpException from './middleware/HttpException';
 import {create as createKarya, getApresiasiByNamaHimpunan} from '../models/kontenApresiasi';
 import { getHimpunanFromNamaHimpunan } from '../models/himpunan';
+import logger from '../loaders/logger';
 
 const router = Router();
 

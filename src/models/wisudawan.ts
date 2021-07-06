@@ -26,6 +26,8 @@ import Karya, {
 import Jurusan  from './jurusan';
 import { WisudawanAttributes } from '../interfaces/IWisudawan';
 import HttpException from '../routes/middleware/HttpException';
+import logger from '../loaders/logger';
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 class Wisudawan extends Model<WisudawanAttributes>
   implements WisudawanAttributes {
@@ -278,18 +280,21 @@ export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => 
   });
 };
 
-export const getDataOfHimpunan = async (namaHimpunan: string): Promise<any> => {
+export const getDataOfHimpunan = async (namaHimpunanVanilla: string): Promise<any> => {
+  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ').toLowerCase();
   try {
     const res = await conn.query(`
   SELECT nim,
       jurusan."namaJurusan",
       wisudawan."namaLengkap",
       wisudawan."judulTA",
-      wisudawan.pasfoto
-    FROM ((wisudawan
+      wisudawan.pasfoto,
+      array_agg(DISTINCT lembaga.lembaga) AS "lembaga"
+    FROM (((wisudawan
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
-    WHERE himpunan."namaHimpunan" = ? AND wisudawan.nonhim = false
+      JOIN lembaga USING(nim))
+    WHERE LOWER(himpunan."namaHimpunan") = ? AND wisudawan.nonhim = false
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `, {
@@ -302,22 +307,23 @@ export const getDataOfHimpunan = async (namaHimpunan: string): Promise<any> => {
   }
 };
 
-export const getDataOfNonHimpunan = async (namaHimpunan: string): Promise<any> => {
+export const getDataOfNonHimpunan = async (): Promise<any> => {
   try {
     const res = await conn.query(`
   SELECT nim,
       jurusan."namaJurusan",
       wisudawan."namaLengkap",
       wisudawan."judulTA",
-      wisudawan.pasfoto
-    FROM ((wisudawan
+      wisudawan.pasfoto,
+      array_agg(DISTINCT lembaga.lembaga) AS "lembaga"
+    FROM (((wisudawan
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
+      JOIN lembaga USING(nim))
     WHERE wisudawan.nonhim = true
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `, {
-      replacements: [namaHimpunan],
       type: QueryTypes.SELECT,
     });
     return res;

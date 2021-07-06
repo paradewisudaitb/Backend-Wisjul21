@@ -21,8 +21,8 @@ export default (app: Router): void => {
     const nim = req.query.nim?.toString();
     if (namaHimpunan) {
       try {
-        if (namaHimpunan == 'nonhim') {
-          const a = await getDataOfNonHimpunan(namaHimpunan);
+        if (namaHimpunan.toLowerCase() == 'non-himpunan') {
+          const a = await getDataOfNonHimpunan();
           res.json(a);
         } else {
           const a = await getDataOfHimpunan(namaHimpunan);

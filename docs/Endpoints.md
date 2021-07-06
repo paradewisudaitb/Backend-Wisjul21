@@ -86,7 +86,7 @@ lengkap himpunan)
       namaJurusan: string,
       namaLengkap: string,
       pasfoto: string,
-      lembagaNonHMJ: string[]
+      lembaga: string[]
   },
 ]
 ```
@@ -195,7 +195,7 @@ namaPengirim boleh dikosongin, kalau kosog otomatis jadi 'Anonymous'
 - Endpoint: `/kontenApresiasi/uploadKonten`
 - Method: POST
 - Request body: Mixed(?)
-- Contoh penggunaan: 
+- Contoh penggunaan:
 ```ts
 const fd = new FormData();
 fd.append('kontenApresiasi', data.kontenApresiasi[0]);
@@ -232,7 +232,7 @@ await fetch(`${API_URL}/kontenApresiasi/uploadKonten`, {
 [
   {
       idApresiasi: number,
-      idHimpunan: number 
+      idHimpunan: number,
       linkKonten: string,
       linkThumbnail: string,
       tipeKonten: tipeApresiasi,
