@@ -6,7 +6,6 @@ import {
   tipeApresiasi,
 } from '../interfaces/IKontenApresiasi';
 import HttpException from '../routes/middleware/HttpException';
-
 /**
  * Attribut optional di `User.build` dan `User.create`
  */

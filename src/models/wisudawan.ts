@@ -18,6 +18,8 @@ import Karya, { create as karyaCreate } from './karya';
 import Jurusan from './jurusan';
 import { WisudawanAttributes } from '../interfaces/IWisudawan';
 import HttpException from '../routes/middleware/HttpException';
+import logger from '../loaders/logger';
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 class Wisudawan
   extends Model<WisudawanAttributes>
