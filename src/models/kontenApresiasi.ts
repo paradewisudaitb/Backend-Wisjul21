@@ -1,19 +1,19 @@
-import { Model, DataTypes, Optional, where, fn, col } from "sequelize";
-import conn from "../connections/db";
-import Himpunan from "./himpunan";
+import { Model, DataTypes, Optional, where, fn, col } from 'sequelize';
+import conn from '../connections/db';
+import Himpunan from './himpunan';
 import {
   kontenApresiasiAttributes,
   tipeApresiasi,
-} from "../interfaces/IKontenApresiasi";
-import HttpException from "../routes/middleware/HttpException";
-import logger from "../loaders/logger";
+} from '../interfaces/IKontenApresiasi';
+import HttpException from '../routes/middleware/HttpException';
+import logger from '../loaders/logger';
 
 /**
  * Attribut optional di `User.build` dan `User.create`
  */
 type apresiasiCreationAttributes = Optional<
   kontenApresiasiAttributes,
-  "idApresiasi"
+  'idApresiasi'
 >;
 
 class kontenApresiasi
@@ -53,13 +53,13 @@ kontenApresiasi.init(
     },
     tipeKonten: {
       type: DataTypes.ENUM({
-        values: ["poster", "website", "video", "lagu", "puisi", "other"],
+        values: ['poster', 'website', 'video', 'lagu', 'puisi', 'other'],
       }),
       allowNull: false,
     },
   },
   {
-    tableName: "kontenApresiasi",
+    tableName: 'kontenApresiasi',
     sequelize: conn,
   }
 );
@@ -111,11 +111,11 @@ export const getApresiasiByidHimpunan = async (
 export const getApresiasiByNamaHimpunan = async (
   namaHimpunanVanilla: string
 ): Promise<kontenApresiasi[]> => {
-  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, " ").toLowerCase();
+  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ').toLowerCase();
   try {
     const res = await Himpunan.findAll({
       where: {
-        namaHimpunan: where(fn("LOWER", col("namaHimpunan")), namaHimpunan),
+        namaHimpunan: where(fn('LOWER', col('namaHimpunan')), namaHimpunan),
       },
       include: [kontenApresiasi],
     });

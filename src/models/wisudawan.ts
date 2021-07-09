@@ -8,18 +8,18 @@ import {
   HasManyCreateAssociationMixin,
   DataTypes,
   QueryTypes,
-} from "sequelize";
-import conn from "../connections/db";
-import Prestasi, { create as prestasiCreate } from "./prestasi";
-import Pesan from "./pesan";
-import Lembaga, { create as lembagaCreate } from "./lembaga";
-import Kontribusi, { create as kontribusiCreate } from "./kontribusi";
-import Karya, { create as karyaCreate } from "./karya";
-import Jurusan from "./jurusan";
-import { WisudawanAttributes } from "../interfaces/IWisudawan";
-import HttpException from "../routes/middleware/HttpException";
-import logger from "../loaders/logger";
-import { ConfigurationServicePlaceholders } from "aws-sdk/lib/config_service_placeholders";
+} from 'sequelize';
+import conn from '../connections/db';
+import Prestasi, { create as prestasiCreate } from './prestasi';
+import Pesan from './pesan';
+import Lembaga, { create as lembagaCreate } from './lembaga';
+import Kontribusi, { create as kontribusiCreate } from './kontribusi';
+import Karya, { create as karyaCreate } from './karya';
+import Jurusan from './jurusan';
+import { WisudawanAttributes } from '../interfaces/IWisudawan';
+import HttpException from '../routes/middleware/HttpException';
+import logger from '../loaders/logger';
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 class Wisudawan
   extends Model<WisudawanAttributes>
@@ -148,45 +148,45 @@ Wisudawan.init(
     },
   },
   {
-    tableName: "wisudawan",
+    tableName: 'wisudawan',
     sequelize: conn,
   }
 );
 
 Wisudawan.hasMany(Prestasi, {
-  foreignKey: "nim",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'nim',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 Wisudawan.hasMany(Pesan, {
-  foreignKey: "nim",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'nim',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 Wisudawan.hasMany(Lembaga, {
-  foreignKey: "nim",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'nim',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 Wisudawan.hasMany(Kontribusi, {
-  foreignKey: "nim",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'nim',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 Wisudawan.hasMany(Karya, {
-  foreignKey: "nim",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'nim',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 Wisudawan.hasOne(Jurusan, {
-  foreignKey: "idJurusan",
-  onDelete: "cascade",
-  onUpdate: "cascade",
+  foreignKey: 'idJurusan',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
 });
 
 export const create = async (
@@ -226,40 +226,40 @@ export const create = async (
 
   if (!lembaga) {
     // ga ada karya
-    wisudawan.addLembagas(await lembagaCreate(nim, "-"));
+    wisudawan.addLembagas(await lembagaCreate(nim, '-'));
   } else {
     for (const lem of lembaga) {
-      if (lem == "") continue;
+      if (lem == '') continue;
       wisudawan.addLembagas(await lembagaCreate(nim, lem));
     }
   }
 
   if (!kontribusi) {
     // ga ada karya
-    wisudawan.addKontribusis(await kontribusiCreate(nim, "-"));
+    wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
   } else {
     for (const lem of kontribusi) {
-      if (lem == "") continue;
+      if (lem == '') continue;
       wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
     }
   }
 
   if (!karya) {
     // ga ada karya
-    wisudawan.addKaryas(await karyaCreate(nim, "-"));
+    wisudawan.addKaryas(await karyaCreate(nim, '-'));
   } else {
     for (const lem of karya) {
-      if (lem == "") continue;
+      if (lem == '') continue;
       wisudawan.addKaryas(await karyaCreate(nim, lem));
     }
   }
 
   if (!prestasi) {
     // ga ada prestasi
-    wisudawan.addPrestasis(await prestasiCreate(nim, "-"));
+    wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
   } else {
     for (const pres of prestasi) {
-      if (pres == "") continue;
+      if (pres == '') continue;
       wisudawan.addPrestasis(await prestasiCreate(nim, pres));
     }
   }
@@ -283,7 +283,7 @@ export const getWisudawanFromNIM = async (
 export const getDataOfHimpunan = async (
   namaHimpunanVanilla: string
 ): Promise<any> => {
-  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, " ").toLowerCase();
+  const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ').toLowerCase();
   try {
     const res = await conn.query(
       `
