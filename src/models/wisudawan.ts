@@ -18,8 +18,6 @@ import Karya, { create as karyaCreate } from './karya';
 import Jurusan from './jurusan';
 import { WisudawanAttributes } from '../interfaces/IWisudawan';
 import HttpException from '../routes/middleware/HttpException';
-import logger from '../loaders/logger';
-import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 class Wisudawan
   extends Model<WisudawanAttributes>
@@ -368,7 +366,7 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
           JOIN prestasi USING(nim))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
-         WHERE nim = ?
+         WHERE nim = ? AND wisudawan.show_at_web = true
        GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt", wisudawan.nonhim
        ORDER BY wisudawan."createdAt";
     `,
