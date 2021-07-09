@@ -24,11 +24,6 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
     throw new HttpException(400, `Jurusan: ${wisudawanInput.jurusan} invalid`);
   }
 
-  const karya = wisudawanInput.karya?.split(',').map(e => e.trim());
-  const kontrib = wisudawanInput.kontribusi?.split(',').map(e => e.trim());
-  const lembaga = wisudawanInput.lembaga?.split(',').map(e => e.trim());
-  const prestasi = wisudawanInput.prestasi?.split(',').map(e => e.trim());
-
   try {
     return await createWisudawan(
       wisudawanInput.nim,
@@ -44,10 +39,11 @@ export const newWisudawan = async (wisudawanInput: WisudawanInput): Promise<Wisu
       wisudawanInput.tanggalLahir,
       wisudawanInput.angkatan,
       wisudawanInput.nonhim,
-      karya,
-      kontrib,
-      lembaga,
-      prestasi,
+      wisudawanInput.showAtWeb,
+      wisudawanInput.karya,
+      wisudawanInput.kontribusi,
+      wisudawanInput.lembaga,
+      wisudawanInput.prestasi,
     );
   } catch (_) {
     // e adalah UniqueConstraintError

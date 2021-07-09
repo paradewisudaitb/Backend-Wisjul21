@@ -15,6 +15,7 @@ export interface WisudawanAttributes {
   tanggalLahir: Date;
   angkatan: number;
   nonhim: boolean;
+  showAtWeb: boolean;
 }
 
 export interface WisudawanInput {
@@ -31,12 +32,9 @@ export interface WisudawanInput {
   tanggalLahir: Date;
   angkatan: number;
   nonhim: boolean;
-  /// comma delimited string
-  prestasi?: string;
-  /// comma delimited string
-  karya?: string;
-  /// comma delimited string
-  kontribusi?: string;
-  /// comma delimited string
-  lembaga?: string;
+  showAtWeb: boolean;
+  prestasi: string[];
+  karya: string[];
+  kontribusi: string[];
+  lembaga: string[];
 }

@@ -37,6 +37,7 @@ class Wisudawan
   public tanggalLahir!: Date; //gatau date di ts apa
   public angkatan!: number;
   public nonhim!: boolean;
+  public showAtWeb!: boolean;
 
   // data pembuatan dan update
   public readonly createdAt!: Date;
@@ -144,6 +145,10 @@ Wisudawan.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    showAtWeb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   },
   {
     tableName: 'wisudawan',
@@ -201,10 +206,11 @@ export const create = async (
   tanggalLahir: Date,
   angkatan: number,
   nonhim: boolean,
-  karya?: string[],
-  kontribusi?: string[],
-  lembaga?: string[],
-  prestasi?: string[]
+  showAtWeb: boolean,
+  karya: string[],
+  kontribusi: string[],
+  lembaga: string[],
+  prestasi: string[]
 ): Promise<Wisudawan> => {
   const wisudawan = await Wisudawan.create({
     nim,
@@ -220,47 +226,25 @@ export const create = async (
     tanggalLahir,
     angkatan,
     nonhim,
+    showAtWeb,
   });
 
-  if (!lembaga) {
-    // ga ada karya
-    wisudawan.addLembagas(await lembagaCreate(nim, '-'));
-  } else {
-    for (const lem of lembaga) {
-      if (lem == '') continue;
-      wisudawan.addLembagas(await lembagaCreate(nim, lem));
-    }
+  for (const lem of lembaga) {
+    wisudawan.addLembagas(await lembagaCreate(nim, lem));
   }
 
-  if (!kontribusi) {
-    // ga ada karya
-    wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
-  } else {
-    for (const lem of kontribusi) {
-      if (lem == '') continue;
-      wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
-    }
+  for (const lem of kontribusi) {
+    wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
   }
 
-  if (!karya) {
-    // ga ada karya
-    wisudawan.addKaryas(await karyaCreate(nim, '-'));
-  } else {
-    for (const lem of karya) {
-      if (lem == '') continue;
-      wisudawan.addKaryas(await karyaCreate(nim, lem));
-    }
+  for (const lem of karya) {
+    wisudawan.addKaryas(await karyaCreate(nim, lem));
   }
 
-  if (!prestasi) {
-    // ga ada prestasi
-    wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
-  } else {
-    for (const pres of prestasi) {
-      if (pres == '') continue;
-      wisudawan.addPrestasis(await prestasiCreate(nim, pres));
-    }
+  for (const pres of prestasi) {
+    wisudawan.addPrestasis(await prestasiCreate(nim, pres));
   }
+
   return wisudawan;
 };
 
@@ -295,7 +279,7 @@ export const getDataOfHimpunan = async (
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
       JOIN lembaga USING(nim))
-    WHERE LOWER(himpunan."namaHimpunan") = ? AND wisudawan.nonhim = false AND wisudawan.show_at_web = true
+    WHERE LOWER(himpunan."namaHimpunan") = ? AND wisudawan.nonhim = false AND wisudawan."showAtWeb" = true
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `,
@@ -324,7 +308,7 @@ export const getDataOfNonHimpunan = async (): Promise<any> => {
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
       JOIN lembaga USING(nim))
-    WHERE wisudawan.nonhim = true AND wisudawan.show_at_web = true
+    WHERE wisudawan.nonhim = true AND wisudawan."showAtWeb" = true
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
     `,
@@ -366,7 +350,7 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
           JOIN prestasi USING(nim))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
-         WHERE nim = ? AND wisudawan.show_at_web = true
+         WHERE nim = ? AND wisudawan."showAtWeb" = true
        GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt", wisudawan.nonhim
        ORDER BY wisudawan."createdAt";
     `,
