@@ -1,4 +1,4 @@
-import  {
+import {
   Model,
   Association,
   HasManyGetAssociationsMixin,
@@ -10,27 +10,21 @@ import  {
   QueryTypes,
 } from 'sequelize';
 import conn from '../connections/db';
-import Prestasi, {
-  create as prestasiCreate
-} from './prestasi';
+import Prestasi, { create as prestasiCreate } from './prestasi';
 import Pesan from './pesan';
-import Lembaga, {
-  create as lembagaCreate
-} from './lembaga';
-import Kontribusi, {
-  create as kontribusiCreate
-} from './kontribusi';
-import Karya, {
-  create as karyaCreate
-} from './karya';
-import Jurusan  from './jurusan';
+import Lembaga, { create as lembagaCreate } from './lembaga';
+import Kontribusi, { create as kontribusiCreate } from './kontribusi';
+import Karya, { create as karyaCreate } from './karya';
+import Jurusan from './jurusan';
 import { WisudawanAttributes } from '../interfaces/IWisudawan';
 import HttpException from '../routes/middleware/HttpException';
 import logger from '../loaders/logger';
 import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
-class Wisudawan extends Model<WisudawanAttributes>
-  implements WisudawanAttributes {
+class Wisudawan
+  extends Model<WisudawanAttributes>
+  implements WisudawanAttributes
+{
   // atribut-atribut
   public nim!: string;
   public idJurusan!: number;
@@ -42,9 +36,10 @@ class Wisudawan extends Model<WisudawanAttributes>
   public tipsSukses!: string;
   public email!: string;
   public kotaAsal!: string;
-  public tanggalLahir!: Date;//gatau date di ts apa
+  public tanggalLahir!: Date; //gatau date di ts apa
   public angkatan!: number;
   public nonhim!: boolean;
+  public showAtWeb!: boolean;
 
   // data pembuatan dan update
   public readonly createdAt!: Date;
@@ -100,58 +95,62 @@ Wisudawan.init(
     nim: {
       type: DataTypes.STRING(8),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
     idJurusan: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     namaLengkap: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     namaPanggilan: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     pasfoto: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
     },
     judulTA: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     funFact: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     tipsSukses: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     kotaAsal: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     tanggalLahir: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
     },
     angkatan: {
       type: DataTypes.INTEGER, // 16, 17, 18, ...
-      allowNull: false
+      allowNull: false,
     },
     nonhim: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
-    }
+      allowNull: false,
+    },
+    showAtWeb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   },
   {
     tableName: 'wisudawan',
@@ -189,7 +188,7 @@ Wisudawan.hasMany(Karya, {
   onUpdate: 'cascade',
 });
 
-Wisudawan.hasOne  (Jurusan, {
+Wisudawan.hasOne(Jurusan, {
   foreignKey: 'idJurusan',
   onDelete: 'cascade',
   onUpdate: 'cascade',
@@ -209,10 +208,11 @@ export const create = async (
   tanggalLahir: Date,
   angkatan: number,
   nonhim: boolean,
-  karya?: string[],
-  kontribusi?: string[],
-  lembaga?: string[],
-  prestasi?: string[]
+  showAtWeb: boolean,
+  karya: string[],
+  kontribusi: string[],
+  lembaga: string[],
+  prestasi: string[]
 ): Promise<Wisudawan> => {
   const wisudawan = await Wisudawan.create({
     nim,
@@ -227,44 +227,26 @@ export const create = async (
     kotaAsal,
     tanggalLahir,
     angkatan,
-    nonhim
+    nonhim,
+    showAtWeb,
   });
 
-  if (!lembaga) {// ga ada karya
-    wisudawan.addLembagas(await lembagaCreate(nim, '-'));
-  } else {
-    for (const lem of lembaga) {
-      if (lem == '') continue;
-      wisudawan.addLembagas(await lembagaCreate(nim, lem));
-    }
+  for (const lem of lembaga) {
+    wisudawan.addLembagas(await lembagaCreate(nim, lem));
   }
 
-  if (!kontribusi) {// ga ada karya
-    wisudawan.addKontribusis(await kontribusiCreate(nim, '-'));
-  } else {
-    for (const lem of kontribusi) {
-      if (lem == '') continue;
-      wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
-    }
+  for (const lem of kontribusi) {
+    wisudawan.addKontribusis(await kontribusiCreate(nim, lem));
   }
 
-  if (!karya) {// ga ada karya
-    wisudawan.addKaryas(await karyaCreate(nim, '-'));
-  } else {
-    for (const lem of karya) {
-      if (lem == '') continue;
-      wisudawan.addKaryas(await karyaCreate(nim, lem));
-    }
+  for (const lem of karya) {
+    wisudawan.addKaryas(await karyaCreate(nim, lem));
   }
 
-  if (!prestasi) { // ga ada prestasi
-    wisudawan.addPrestasis(await prestasiCreate(nim, '-'));
-  } else {
-    for (const pres of prestasi) {
-      if (pres == '') continue;
-      wisudawan.addPrestasis(await prestasiCreate(nim, pres));
-    }
+  for (const pres of prestasi) {
+    wisudawan.addPrestasis(await prestasiCreate(nim, pres));
   }
+
   return wisudawan;
 };
 
@@ -272,18 +254,23 @@ export const selectAll = async (): Promise<Wisudawan[]> => {
   return Wisudawan.findAll();
 };
 
-export const getWisudawanFromNIM = async (nim: string): Promise<Wisudawan[]> => {
+export const getWisudawanFromNIM = async (
+  nim: string
+): Promise<Wisudawan[]> => {
   return await Wisudawan.findAll({
     where: {
       nim,
-    }
+    },
   });
 };
 
-export const getDataOfHimpunan = async (namaHimpunanVanilla: string): Promise<any> => {
+export const getDataOfHimpunan = async (
+  namaHimpunanVanilla: string
+): Promise<any> => {
   const namaHimpunan = namaHimpunanVanilla.replace(/-/g, ' ').toLowerCase();
   try {
-    const res = await conn.query(`
+    const res = await conn.query(
+      `
   SELECT nim,
       jurusan."namaJurusan",
       wisudawan."namaLengkap",
@@ -294,13 +281,15 @@ export const getDataOfHimpunan = async (namaHimpunanVanilla: string): Promise<an
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
       JOIN lembaga USING(nim))
-    WHERE LOWER(himpunan."namaHimpunan") = ? AND wisudawan.nonhim = false
+    WHERE LOWER(himpunan."namaHimpunan") = ? AND wisudawan.nonhim = false AND wisudawan."showAtWeb" = true
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
-    `, {
-      replacements: [namaHimpunan],
-      type: QueryTypes.SELECT,
-    });
+    `,
+      {
+        replacements: [namaHimpunan],
+        type: QueryTypes.SELECT,
+      }
+    );
     return res;
   } catch (err) {
     throw new HttpException(500, err);
@@ -309,7 +298,8 @@ export const getDataOfHimpunan = async (namaHimpunanVanilla: string): Promise<an
 
 export const getDataOfNonHimpunan = async (): Promise<any> => {
   try {
-    const res = await conn.query(`
+    const res = await conn.query(
+      `
   SELECT nim,
       jurusan."namaJurusan",
       wisudawan."namaLengkap",
@@ -320,22 +310,24 @@ export const getDataOfNonHimpunan = async (): Promise<any> => {
       JOIN jurusan USING ("idJurusan"))
       JOIN himpunan USING ("idHimpunan"))
       JOIN lembaga USING(nim))
-    WHERE wisudawan.nonhim = true
+    WHERE wisudawan.nonhim = true AND wisudawan."showAtWeb" = true
     GROUP BY nim, jurusan."namaJurusan",  wisudawan."namaLengkap", wisudawan."judulTA", wisudawan.pasfoto
     ORDER BY nim;
-    `, {
-      type: QueryTypes.SELECT,
-    });
+    `,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
     return res;
   } catch (err) {
     throw new HttpException(500, err);
   }
 };
 
-
 export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
   try {
-    const res = await conn.query(`
+    const res = await conn.query(
+      `
      SELECT nim,
          jurusan."namaJurusan",
          himpunan."namaHimpunan",
@@ -360,13 +352,15 @@ export const getDataWisudawanToShow = async (nim: string): Promise<any> => {
           JOIN prestasi USING(nim))
           JOIN kontribusi USING (nim))
           JOIN lembaga USING (nim))
-         WHERE nim = ?
+         WHERE nim = ? AND wisudawan."showAtWeb" = true
        GROUP BY nim, jurusan."namaJurusan", himpunan."namaHimpunan", wisudawan."namaLengkap", wisudawan."namaPanggilan", wisudawan.email, wisudawan.angkatan, wisudawan."tipsSukses", wisudawan."kotaAsal", wisudawan."tanggalLahir", wisudawan."judulTA", wisudawan."funFact", wisudawan.pasfoto, wisudawan."createdAt", wisudawan.nonhim
        ORDER BY wisudawan."createdAt";
-    `, {
-      replacements: [nim],
-      type: QueryTypes.SELECT,
-    });
+    `,
+      {
+        replacements: [nim],
+        type: QueryTypes.SELECT,
+      }
+    );
     return res;
   } catch (err) {
     throw new HttpException(500, err);
