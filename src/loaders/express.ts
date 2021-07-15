@@ -11,11 +11,12 @@ export default (app: express.Application): void => {
 
   if (process.env.NODE_ENV == 'production') {
     app.use(cors({
-      origin: /\.?wisjulitb.com$/,
+      origin: [/\.?wisjulitb.com$/, "virtualfair.karir.itb.ac.id/wijul2021"],
     }));
   } else {
     app.use(cors());
   }
+
   morganBody(app, {
     logIP: true,
     timezone: 'Asia/Jakarta',
