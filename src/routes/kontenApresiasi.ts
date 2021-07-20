@@ -6,6 +6,7 @@ import {
   getApresiasiByNamaHimpunan,
 } from '../models/kontenApresiasi';
 import { getHimpunanFromNamaHimpunan } from '../models/himpunan';
+import logger from '../loaders/logger';
 
 const router = Router();
 
